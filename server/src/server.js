@@ -1,5 +1,5 @@
-const  login  = require("./controller/LoginController")
-const  signup  = require("./controller/SignupController")
+const login = require("./controller/LoginController")
+const signup = require("./controller/SignupController")
 const { MongoClient } = require('mongodb');
 const express = require("express")
 const cors = require("cors")

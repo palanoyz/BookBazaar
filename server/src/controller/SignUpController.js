@@ -10,13 +10,12 @@ const hashPassword = async (password) => {
 };
 module.exports = async (req, res) => {
     try {
-        const { username, password, email, phonenumber } = req.body
+        const { username, password, email } = req.body
         await connectDB()
         const createuser = {
             username,
             password: await hashPassword(password),
-            email,
-            phonenumber
+            email
         }
         await client.db('user').collection('user').insertOne(createuser)
         res.status(201).json(createuser)
