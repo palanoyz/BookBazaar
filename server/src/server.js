@@ -4,14 +4,13 @@ const { MongoClient } = require('mongodb');
 const express = require("express")
 const cors = require("cors")
 
-
 const app = express()
 const port = 5000
-app.use(cors())
 const uri = 'mongodb+srv://kritamet:1234@cluster0.kdvkhdy.mongodb.net/'
-app.use(express.json())
-
 const client = new MongoClient(uri)
+
+app.use(cors())
+app.use(express.json())
 
 const connectDB = async () => {
     try {
@@ -29,3 +28,5 @@ app.post('/signup', signup)
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}/`)
 })
+
+connectDB();
