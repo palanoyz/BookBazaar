@@ -2,7 +2,7 @@ const { client, connectDB } = require('../server.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-export const login = async (req, res) => {
+module.exports = async (req, res) => {
     try {
         const { email, password } = req.body
         await connectDB()
@@ -19,5 +19,4 @@ export const login = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-
 }

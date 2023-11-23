@@ -1,4 +1,4 @@
-import { client, connectDB } from '../server.js';
+const { client, connectDB } = require('../server.js');
 const bcrypt = require('bcrypt');
 
 
@@ -8,8 +8,7 @@ const hashPassword = async (password) => {
     const hash = await bcrypt.hash(password, salt);
     return hash
 };
-
-export const signup = async (req, res) => {
+module.exports = async (req, res) => {
     try {
         const { username, password, email, phonenumber } = req.body
         await connectDB()
