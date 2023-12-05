@@ -16,19 +16,22 @@ const Signup = () => {
     })
     
     const handleChange = (e) => {
-        setSignUp({ ...SignUp, [e.target.name]: e.target.value })
+        const { name, value } = e.target;
+        setSignUp((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
     }
 
-    const handelSignUp = (e) => {
-        e.preventDefault()
-        const createNewUser = {
-            username: SignUp.username
-            , email: SignUp.email
-            , password: SignUp.password
+    const handelSignUp = async (e) => {
+        try {
+            e.preventDefault();
+            const response = await axios.post("http://localhost:5000/signup", SignUp);
+            console.log(response.data); 
+            navigate("/login");
+        } catch (error) {
+            console.error("Signup failed:", error);
         }
-        axios.post("http://localhost:3000/signup", createNewUser)
-
-        console.log(SignUp)
     }
 
 
@@ -45,7 +48,7 @@ const Signup = () => {
                             <h2>Sign Up</h2>
                             <p>Create a new account</p>
 
-                            <form onSubmit={handelSignUp}>              
+                            <form onSubmit={handelSignUp} method="POST">              
                                 <div className="form-group">
                                     <label>Username</label>
                                     <input 

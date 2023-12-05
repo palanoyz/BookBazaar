@@ -1,12 +1,13 @@
-const login = require("./controller/LoginController")
-const signup = require("./controller/SignupController")
-const { MongoClient } = require('mongodb');
 const express = require("express")
+const { MongoClient } = require('mongodb')
 const cors = require("cors")
 
+const login = require("./controller/LoginController")
+const signup = require("./controller/SignupController")
+
 const app = express()
-const port = 5000
-const uri = 'mongodb+srv://kritamet:1234@cluster0.kdvkhdy.mongodb.net/'
+const PORT = 5000
+const uri = 'mongodb+srv://kritamet:1234@cluster0.kdvkhdy.mongodb.net/bookbazaar'
 const client = new MongoClient(uri)
 
 app.use(cors())
@@ -25,8 +26,8 @@ const connectDB = async () => {
 app.post('/login', login)
 app.post('/signup', signup)
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/`)
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}/`)
 })
 
 connectDB();

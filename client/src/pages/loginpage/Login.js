@@ -9,39 +9,42 @@ const Login = () => {
 
     const navigate = useNavigate()
 
-    const [Login, setLogin] = useState(
-        {
-        email: ''
-        , password: ''
-        })
+    const [Login, setLogin] = useState({
+        email: "",
+        password: "",
+    })
 
     const handleChange = (e) => {
-        setLogin({ ...Login, [e.target.name]: e.target.value })
+        const { name, value } = e.target;
+        setLogin((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
     }
-
-    const handelLogin = async (e) => {
+    
+    const handleLogin = async (e) => {
         try {
-            e.preventDefault()
-            const LoginData = {
-                email: Login.email
-                , password: Login.password
-            }
-            await axios.post('http://localhost:3000/login', LoginData, {
+            e.preventDefault();
+            const loginDataToSend = {
+                email: Login.email,
+                password: Login.password,
+            };
+
+            const response = await axios.post("http://localhost:5000/login", loginDataToSend,
+            {
                 withCredentials: true,
                 headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
                 },
-            }).then(res => {
-                console.log(res.data);
-                navigate(`/Homepage/${res.data.username}`);
-            }).catch(err => {
-                console.log(err);
-            })
+            });
+
+            console.log(response.data);
+            // navigate(`/${response.data.username}`);
+            navigate(`/`);
+        } catch(error) {
+            console.error("Login failed:", error);
         }
-        catch (err) {
-            console.log(err);
-        }
-    }
+    };
 
 
     return (
@@ -56,7 +59,7 @@ const Login = () => {
                         <div className="content-wrapper">
                             <h2>Login</h2>
 
-                            <form onSubmit={handelLogin}>
+                            <form onSubmit={handleLogin}>
                                 <div className="form-group">
                                     <label>Email</label>
                                     <input 

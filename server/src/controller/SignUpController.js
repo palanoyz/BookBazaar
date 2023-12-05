@@ -8,6 +8,7 @@ const hashPassword = async (password) => {
     const hash = await bcrypt.hash(password, salt);
     return hash
 };
+
 module.exports = async (req, res) => {
     try {
         const { username, password, email } = req.body

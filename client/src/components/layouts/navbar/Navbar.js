@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../App";
@@ -8,10 +8,40 @@ const Navbar = ({ darkTheme, darkText }) => {
 
     const user = useContext(UserContext);
     const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const handleLogout = () => {
+    useEffect(() => {
+        // Make an API call to the backend to check authentication status
+        const checkAuthentication = async () => {
+            try {
+                const response = await fetch("/api/check-auth", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // Include any additional headers or tokens if needed
+                    },
+                    credentials: "include", // Include credentials (cookies) for cross-origin requests
+                });
+        
+                if (response.ok) {
+                    setIsLoggedIn(true);
+                } else {
+                    setIsLoggedIn(false);
+                }
+            } catch (error) {
+                console.error("Error checking authentication:", error);
+            }
+        };
+    
+        checkAuthentication();
+    }, [user]);
+    
+    const handleLogout = async () => {
+        
+        setIsLoggedIn(false);
+        navigate("/");
+    };
 
-    }
 
     const showLoginAndSignup = (
         <nav className="nav-links-container">
@@ -30,6 +60,7 @@ const Navbar = ({ darkTheme, darkText }) => {
             <Link to="/cart" className="cart-link"><Cart /></Link>
         </nav>
     )
+
 
     return (
         <section className={ `navbar-container ${darkTheme? 'background-dark relative' : 'background-transparent'}` }>
