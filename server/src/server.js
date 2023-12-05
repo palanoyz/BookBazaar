@@ -1,33 +1,45 @@
-const express = require("express")
-const { MongoClient } = require('mongodb')
-const cors = require("cors")
+const cors = require('cors')
+const express = require('express')
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const bcrypt = require('bcrypt')
+const { MongoClient, ObjectId } = require('mongodb')
 
-const login = require("./controller/LoginController")
-const signup = require("./controller/SignupController")
-
-const app = express()
 const PORT = 5000
-const uri = 'mongodb+srv://kritamet:1234@cluster0.kdvkhdy.mongodb.net/bookbazaar'
-const client = new MongoClient(uri)
+const app = express()
 
-app.use(cors())
 app.use(express.json())
+app.use(cors({
+    credentials: true,
+    origin: [`http://localhost:${PORT}`]
+}))
 
-const connectDB = async () => {
-    try {
-        await client.connect()
-        console.log('Connected to DB');
-    }
-    catch (e) {
-        console.log('Error', e);
-    }
-}
-
-app.post('/login', login)
-app.post('/signup', signup)
-
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}/`)
+app.listen(PORT, async () => {
+    console.log(`Server started at port ${PORT}`)
 })
 
-connectDB();
+app.get('/', (req,res)=>{
+    res.send({ message: 'home' })
+})
+
+const url = "mongodb+srv://kritamet:1234@cluster0.ebbbwuy.mongodb.net/"
+const client = new MongoClient(url)
+
+app.post('/api/signup', async (req,res)=>{
+    try {
+        const {username, email, password} = req.body
+        const passwordHash = await bcrypt.hash(password, 10)
+        const user = {
+            username,
+            email,
+            password
+        }
+        await client.db("bookbazaar").collection("user").insertOne(user)
+        res.status(201).send(user)
+    } catch(err) {
+        res.send(err)
+    }
+})
+
+app.post()
