@@ -14,21 +14,12 @@ const client = new MongoClient(url)
 app.use(express.json())
 app.use(cors({
     credentials: true,
-    origin: [`http://localhost:${PORT}`]
+    origin: [`http://localhost:3000`]
 }))
 
 app.listen(PORT, async () => {
     console.log(`Server started at port ${PORT}`)
 })
-
-const connectDB = async () => {
-    try {
-        await client.connect();
-        console.log("Connected to DB");
-    } catch (e) {
-        console.log("Error", e);
-    }
-};
 
 app.get('/', (req,res)=>{
     res.send({ message: 'BookBazaar' })
@@ -38,10 +29,10 @@ app.get('/', (req,res)=>{
 app.post('/api/signup', async (req,res)=>{
     try {
         const { username, email, password } = req.body
-        if (email === '' || password === '') {
+        if (username === '' || email === '' || password === '') {
             return res.status(400).send({
-              message: 'Enter email and password',
-              success: false,
+                message: 'Enter email and password',
+                success: false,
             })
         }
         const user = {

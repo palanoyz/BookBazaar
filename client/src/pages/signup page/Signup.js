@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./signup.css";
 import AuthBgImg from "../../assets/auth-bg 2.jpg"
 import Navbar from "../../components/layouts/navbar/Navbar";
-import axios from "axios";
+import { AxiosLib } from '../../lib/axios'
 
 const Signup = () => {
 
@@ -16,21 +16,16 @@ const Signup = () => {
     })
     
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setSignUp((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+        setSignUp({ ...SignUp, [e.target.name]: e.target.value })
     }
 
     const handelSignUp = async (e) => {
+        e.preventDefault()
         try {
-            e.preventDefault();
-            const response = await axios.post("http://localhost:5000/signup", SignUp);
-            console.log(response.data); 
-            navigate("/login");
-        } catch (error) {
-            console.error("Signup failed:", error);
+            const res = await AxiosLib.post("/api/signup", SignUp)
+            navigate('/login')
+        } catch(err) {
+            console.log(err)
         }
     }
 
@@ -48,10 +43,11 @@ const Signup = () => {
                             <h2>Sign Up</h2>
                             <p>Create a new account</p>
 
-                            <form onSubmit={handelSignUp} method="POST">              
+                            <form onSubmit={handelSignUp}>              
                                 <div className="form-group">
                                     <label>Username</label>
-                                    <input 
+                                    <input
+                                        name="username"
                                         type="text" 
                                         className="form-input" 
                                         placeholder="Enter your username"
@@ -61,7 +57,8 @@ const Signup = () => {
                               
                                 <div className="form-group">
                                     <label>Email</label>
-                                    <input 
+                                    <input
+                                        name="email"
                                         type="email" 
                                         className="form-input" 
                                         placeholder="Enter your email"
@@ -71,7 +68,8 @@ const Signup = () => {
 
                                 <div className="form-group">
                                     <label>Password</label>
-                                    <input 
+                                    <input
+                                        name="password"
                                         type="password" 
                                         className="form-input" 
                                         placeholder="Enter your password" 
@@ -83,7 +81,7 @@ const Signup = () => {
                                     <input 
                                         type="submit" 
                                         className="button-primary" 
-                                        value="Submit" 
+                                        value="Submit"
                                     />
                                 </div>
                             </form>

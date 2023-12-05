@@ -3,48 +3,30 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 import AuthBgImg from "../../assets/auth-bg 2.jpg"
 import Navbar from "../../components/layouts/navbar/Navbar";
-import axios from "axios";
+import { AxiosLib } from '../../lib/axios'
 
 const Login = () => {
 
     const navigate = useNavigate()
 
     const [Login, setLogin] = useState({
-        email: "",
-        password: "",
+        email: '',
+        password: '',
     })
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setLogin((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
+        setLogin({ ...Login, [e.target.name]: e.target.value })
     }
     
     const handleLogin = async (e) => {
+        e.preventDefault()
         try {
-            e.preventDefault();
-            const loginDataToSend = {
-                email: Login.email,
-                password: Login.password,
-            };
-
-            const response = await axios.post("http://localhost:5000/login", loginDataToSend,
-            {
-                withCredentials: true,
-                headers: {
-                "Content-Type": "application/json",
-                },
-            });
-
-            console.log(response.data);
-            // navigate(`/${response.data.username}`);
-            navigate(`/`);
-        } catch(error) {
-            console.error("Login failed:", error);
+            const result = await AxiosLib.post('/api/login', { email: Login.email, password: Login.password })
+            if (result.status === 200) navigate('/')
+        } catch (error) {
+            alert('Email or Password is incorrect')
         }
-    };
+    }
 
 
     return (
@@ -62,7 +44,8 @@ const Login = () => {
                             <form onSubmit={handleLogin}>
                                 <div className="form-group">
                                     <label>Email</label>
-                                    <input 
+                                    <input
+                                        name="email"
                                         type="email" 
                                         className="form-input" 
                                         placeholder="Enter your email"
@@ -73,6 +56,7 @@ const Login = () => {
                                 <div className="form-group">
                                     <label>Password</label>
                                     <input 
+                                        name="password"
                                         type="password" 
                                         className="form-input" 
                                         placeholder="Enter your password" 

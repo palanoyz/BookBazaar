@@ -3,43 +3,25 @@ import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../../App";
 import { ReactComponent as Cart } from "../../../assets/cart icon.svg";
+import { AxiosLib } from '../../../lib/axios'
 
 const Navbar = ({ darkTheme, darkText }) => {
 
     const user = useContext(UserContext);
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+    
     useEffect(() => {
-        // Make an API call to the backend to check authentication status
-        const checkAuthentication = async () => {
-            try {
-                const response = await fetch("/api/check-auth", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        // Include any additional headers or tokens if needed
-                    },
-                    credentials: "include", // Include credentials (cookies) for cross-origin requests
-                });
-        
-                if (response.ok) {
-                    setIsLoggedIn(true);
-                } else {
-                    setIsLoggedIn(false);
-                }
-            } catch (error) {
-                console.error("Error checking authentication:", error);
-            }
-        };
-    
-        checkAuthentication();
+        setIsLoggedIn(!!user);
     }, [user]);
-    
+
     const handleLogout = async () => {
-        
-        setIsLoggedIn(false);
-        navigate("/");
+        try {
+            const result = await AxiosLib.post('/api/user/logout')
+            if (result.status === 200) return showLoginAndSignup
+        } catch (error) {
+            console.log(error)
+        }
     };
 
 
@@ -67,7 +49,7 @@ const Navbar = ({ darkTheme, darkText }) => {
             <div className="container flex justify-between align-center">
                 <Link to="/" className="logo">Book<span className="text-primary">Bazaar</span></Link>
 
-                { user? showLogoutAndCart : showLoginAndSignup }
+                { isLoggedIn? showLogoutAndCart : showLoginAndSignup }
 
             </div>
         </section>
