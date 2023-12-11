@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./detailsection.css";
 import { useParams, useNavigate } from "react-router-dom";
-import { BookData } from "../../../util/BookData";
+import { BookData } from "../../../data/BookData";
 import { UserContext, CartContext } from "../../../App";
+import Swal from "sweetalert2";
 
 const DetailSection = () => {
-    const {id} = useParams();
+
+    const navigate = useNavigate();
+    const { id } = useParams();
     const [bookData, setBookData] = useState({});
 
     const user = useContext(UserContext);
     const {cartItems, setCartItems} = useContext(CartContext);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         let newData = BookData.filter((book) => book.id === parseInt(id));
@@ -21,10 +22,16 @@ const DetailSection = () => {
     const handleAddToCart = () => {
         if(user) {
             setCartItems([...cartItems, bookData]);
-            alert(`${bookData.book_name} is added to the cart.`);
+            Swal.fire({
+                icon: "success",
+                title: "The book is added to the cart.",
+            });
         } else {
             navigate('/login');
-            alert("Please Login or Sign up first.");
+            Swal.fire({
+                icon: "error",
+                title: "Please Login or Sign up first.",
+            });
         }
     }
 

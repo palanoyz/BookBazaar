@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./signup.css";
 import AuthBgImg from "../../assets/auth-bg 2.jpg"
@@ -7,24 +7,25 @@ import { AxiosLib } from '../../lib/axios'
 
 const Signup = () => {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const [SignUp, setSignUp] = useState({
-        username: ''
-        , email: ''
-        , password: ''
-    })
-    
+    const [user, setUser] = useState({
+        email: "",
+        username: "",
+        password: "",
+    });
+
     const handleChange = (e) => {
-        setSignUp({ ...SignUp, [e.target.name]: e.target.value })
-    }
+        setUser({ ...user, [e.target.name]: e.target.value, });
+    };
 
     const handelSignUp = async (e) => {
         e.preventDefault()
         try {
-            const res = await AxiosLib.post("/api/signup", SignUp)
+            const res = await AxiosLib.post("/api/signup", user)
+            console.log("success", res);
             navigate('/login')
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }

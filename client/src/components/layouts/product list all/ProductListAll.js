@@ -2,7 +2,7 @@ import React from "react";
 import "./productlistall.css";
 
 import ProductListCard from "../../cards/product list card/ProductListCard";
-import { BookData } from "../../../util/BookData";
+import { BookData } from "../../../data/BookData";
 
 const ProductListAll = () => {
 

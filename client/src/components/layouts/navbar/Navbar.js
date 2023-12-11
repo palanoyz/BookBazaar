@@ -1,24 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../../App";
 import { ReactComponent as Cart } from "../../../assets/cart icon.svg";
 import { AxiosLib } from '../../../lib/axios'
+import { UserContext } from "../../../App";
 
 const Navbar = ({ darkTheme, darkText }) => {
 
-    const user = useContext(UserContext);
-    const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate()
+    const { userInfo } = useContext(UserContext);
+    const token = userInfo?.loginState || false;
+    const role = userInfo?.role || "";
     
-    useEffect(() => {
-        setIsLoggedIn(!!user);
-    }, [user]);
-
     const handleLogout = async () => {
         try {
-            const result = await AxiosLib.post('/api/user/logout')
-            if (result.status === 200) return showLoginAndSignup
+            const result = await AxiosLib.post('/api/logout')
+            if (result.status === 200) {
+                window.location.reload();
+            }
         } catch (error) {
             console.log(error)
         }
@@ -49,7 +48,7 @@ const Navbar = ({ darkTheme, darkText }) => {
             <div className="container flex justify-between align-center">
                 <Link to="/" className="logo">Book<span className="text-primary">Bazaar</span></Link>
 
-                { isLoggedIn? showLogoutAndCart : showLoginAndSignup }
+                { token ? showLogoutAndCart : showLoginAndSignup }
 
             </div>
         </section>

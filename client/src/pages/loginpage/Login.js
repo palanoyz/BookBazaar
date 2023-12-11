@@ -1,32 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import AuthBgImg from "../../assets/auth-bg 2.jpg"
 import Navbar from "../../components/layouts/navbar/Navbar";
 import { AxiosLib } from '../../lib/axios'
+import Swal from "sweetalert2";
 
 const Login = () => {
 
-    const navigate = useNavigate()
-
-    const [Login, setLogin] = useState({
-        email: '',
-        password: '',
-    })
+    const navigate = useNavigate();
+    const [user, setUser] = useState({
+        email: "",
+        password: "",
+    });
 
     const handleChange = (e) => {
-        setLogin({ ...Login, [e.target.name]: e.target.value })
-    }
-    
-    const handleLogin = async (e) => {
-        e.preventDefault()
+        setUser({ ...user, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
         try {
-            const result = await AxiosLib.post('/api/login', { email: Login.email, password: Login.password })
-            if (result.status === 200) navigate('/')
+        e.preventDefault();
+        AxiosLib
+            .post("/api/login", user)
+            .then((res) => {
+            console.log(res.data.result.role);
+            if (res.data.result.role === "admin") {
+                navigate("/admin/dashboard");
+                window.location.reload();
+            } else {
+                navigate("/");
+                window.location.reload();
+            }
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("Something went wrong!");
+                Swal.fire({
+                    icon: "error",
+                    title: "Something went wrong!",
+                });
+            });
         } catch (error) {
-            alert('Email or Password is incorrect')
+        console.log(error);
         }
-    }
+    };
 
 
     return (
@@ -41,7 +59,7 @@ const Login = () => {
                         <div className="content-wrapper">
                             <h2>Login</h2>
 
-                            <form onSubmit={handleLogin}>
+                            <form onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label>Email</label>
                                     <input

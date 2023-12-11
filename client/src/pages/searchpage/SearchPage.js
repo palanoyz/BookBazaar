@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Navbar from "../../components/layouts/navbar/Navbar";
 import Footer from "../../components/layouts/footer/Footer";
 import "./searchpage.css";
-import { BookData } from "../../util/BookData";
+import { BookData } from "../../data/BookData";
 import SearchResultCard from "../../components/cards/search result card/SearchResultCard";
 
 const SearchPage = () => {

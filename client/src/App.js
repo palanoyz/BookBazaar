@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import {Routes, Route } from 'react-router-dom';
+import { AxiosLib } from './lib/axios'
 
 import HomePage from "./pages/homepage/HomePage";
 import BooksPage from "./pages/bookspage/BooksPage";
@@ -8,15 +9,41 @@ import Login from "./pages/loginpage/Login";
 import Signup from "./pages/signup page/Signup";
 import CartPage from "./pages/cartpage/CartPage";
 import SearchPage from "./pages/searchpage/SearchPage";
+import AdminPage from "./pages/admin dashboard/AdminPage";
 
-export const UserContext = createContext({});
+export const UserContext = createContext();
 export const CartContext = createContext({});
 
 const App = () => {
-    const [authenticatedUser, setAuthenticatedUser] = useState(null);
+
+    const [userInfo, setUserInfo] = useState({
+        id: "",
+        username: "",
+        email: "",
+        loginState: false,
+        role: "",
+    });
+    
+    useEffect(() => {
+        AxiosLib
+        .get("/api/checkToken")
+        .then((res) => {
+        setUserInfo({
+            id: res.data.token.id,
+            username: res.data.token.username,
+            email: res.data.token.email,
+            loginState: true,
+            role: res.data.token.role,
+        });
+        })
+        .catch((err) => {
+        console.log(err);
+        });
+    }, [userInfo]);
+
+
     const [cartItems, setCartItems] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
-
     useEffect(() => {
         let total = 0;
         cartItems.forEach((item) => {
@@ -27,7 +54,7 @@ const App = () => {
     },[cartItems])
 
     return(
-        <UserContext.Provider value={authenticatedUser}>
+        <UserContext.Provider value={{ userInfo, setUserInfo }}>
             <CartContext.Provider value={{cartItems, totalAmount, setCartItems}}>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
@@ -37,6 +64,8 @@ const App = () => {
                     <Route path="/book-details/:id" element={<BooksDetailsPage />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/admin/dashboard" element={<AdminPage />} />
+                    <Route path="*" element={<h1>404 not found</h1>} />
                 </Routes>
             </CartContext.Provider>
         </UserContext.Provider>
