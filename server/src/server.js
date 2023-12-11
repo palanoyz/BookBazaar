@@ -35,7 +35,7 @@ app.get('/', (req,res)=>{
     res.send({ message: 'BookBazaar' })
 })
 
-const saltRounds = 10;
+const saltRounds = 5;
 const matchPassword = async (password, hash) => {
     const isMatch = await bcrypt.compare(password, hash);
     return isMatch;

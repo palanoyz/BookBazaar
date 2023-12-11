@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import {Routes, Route } from 'react-router-dom';
 import { AxiosLib } from './lib/axios'
+import ScrollToTop from "./ScrollToTop";
 
 import HomePage from "./pages/homepage/HomePage";
 import BooksPage from "./pages/bookspage/BooksPage";
@@ -10,6 +11,7 @@ import Signup from "./pages/signup page/Signup";
 import CartPage from "./pages/cartpage/CartPage";
 import SearchPage from "./pages/searchpage/SearchPage";
 import AdminPage from "./pages/admin dashboard/AdminPage";
+
 
 export const UserContext = createContext();
 export const CartContext = createContext({});
@@ -54,6 +56,7 @@ const App = () => {
     },[cartItems])
 
     return(
+        <ScrollToTop>
         <UserContext.Provider value={{ userInfo, setUserInfo }}>
             <CartContext.Provider value={{cartItems, totalAmount, setCartItems}}>
                 <Routes>
@@ -69,6 +72,7 @@ const App = () => {
                 </Routes>
             </CartContext.Provider>
         </UserContext.Provider>
+        </ScrollToTop>
     )
 }
 

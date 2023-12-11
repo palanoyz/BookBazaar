@@ -15,7 +15,7 @@ const CartItemsContainer = () => {
                 {totalAmount === 0 ? (
                     <h2>Your cart is empty.</h2>
                 ) : (
-                    <React.Fragment>
+                    <React.Fragment>                      
                         <h2>Cart</h2>
 
                         {cartItems.map((item) => (
@@ -24,8 +24,7 @@ const CartItemsContainer = () => {
 
                         <h2>Total amount : ฿{totalAmount}</h2>
 
-                        <button className="button-primary">Check out</button>                 
-    
+                        <button className="button-primary">Check out</button>
                     </React.Fragment>
                 )}
                
