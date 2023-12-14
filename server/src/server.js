@@ -35,12 +35,12 @@ app.get('/', (req,res)=>{
     res.send({ message: 'BookBazaar' })
 })
 
+// hash and compare password
 const saltRounds = 5;
 const matchPassword = async (password, hash) => {
     const isMatch = await bcrypt.compare(password, hash);
     return isMatch;
 }
-
 const hashPassword = async (password) => {
     const salt = await bcrypt.genSalt(saltRounds); 
     const hash = await bcrypt.hash(password, salt);
@@ -92,7 +92,7 @@ app.post('/api/login', async (req,res) => {
     }
 })
 
-// Check if user logged in
+// Middleware, Check if user logged in
 app.get('/api/checkToken', async (req, res) => {
     try {
         const token = req.cookies.token;

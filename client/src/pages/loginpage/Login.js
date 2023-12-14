@@ -35,7 +35,6 @@ const Login = () => {
             })
             .catch((err) => {
                 console.log(err);
-                alert("Something went wrong!");
                 Swal.fire({
                     icon: "error",
                     title: "Something went wrong!",

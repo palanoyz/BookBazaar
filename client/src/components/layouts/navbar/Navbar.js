@@ -24,7 +24,7 @@ const Navbar = ({ darkTheme, darkText }) => {
     };
 
 
-    const showLoginAndSignup = (
+    const noToken = (
         <nav className="nav-links-container">
             <Link to="/" className={`${darkText? 'nav-links-dark' : 'nav-links'}`}>Home</Link>
             <Link to="/books" className={`${darkText? 'nav-links-dark' : 'nav-links'}`}>Books</Link>
@@ -33,12 +33,22 @@ const Navbar = ({ darkTheme, darkText }) => {
         </nav>
     )
 
-    const showLogoutAndCart = (
+    const haveToken = (
         <nav className="nav-links-container">
             <Link to="/" className={`${darkText? 'nav-links-dark' : 'nav-links'}`}>Home</Link>
             <Link to="/books" className={`${darkText? 'nav-links-dark' : 'nav-links'}`}>Books</Link>
-            <a onClick={handleLogout} className={`${darkText? 'nav-links-dark' : 'nav-links'}`}>Logout</a>
-            <Link to="/cart" className="cart-link"><Cart /></Link>
+            { role==="admin" ? (
+                    <div className="nav-links-container">
+                        <a onClick={handleLogout} className={`${darkText? 'nav-links-dark' : 'nav-links'}`}>Logout</a>
+                        <Link to="/admin/dashboard" className={`${darkText? 'nav-links-dark' : 'nav-links'}`}>Admin</Link>
+                    </div>
+                ) : (
+                    <div className="nav-links-container">
+                        <a onClick={handleLogout} className={`${darkText? 'nav-links-dark' : 'nav-links'}`}>Logout</a>
+                        <Link to="/cart" className="cart-link"><Cart /></Link>
+                    </div>
+                )
+            }         
         </nav>
     )
 
@@ -48,7 +58,7 @@ const Navbar = ({ darkTheme, darkText }) => {
             <div className="container flex justify-between align-center">
                 <Link to="/" className="logo">Book<span className="text-primary">Bazaar</span></Link>
 
-                { token ? showLogoutAndCart : showLoginAndSignup }
+                { token ? haveToken : noToken }
 
             </div>
         </section>

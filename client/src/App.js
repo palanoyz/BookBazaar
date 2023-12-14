@@ -11,6 +11,8 @@ import Signup from "./pages/signup page/Signup";
 import CartPage from "./pages/cartpage/CartPage";
 import SearchPage from "./pages/searchpage/SearchPage";
 import AdminPage from "./pages/admin dashboard/AdminPage";
+import ManageBook from "./pages/admin dashboard/ManageBook";
+import ManageUser from "./pages/admin dashboard/ManageUser";
 
 
 export const UserContext = createContext();
@@ -58,19 +60,21 @@ const App = () => {
     return(
         <ScrollToTop>
         <UserContext.Provider value={{ userInfo, setUserInfo }}>
-            <CartContext.Provider value={{cartItems, totalAmount, setCartItems}}>
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/books" element={<BooksPage />} />
-                    <Route path="/cart" element={<CartPage />} />
-                    <Route path="/search" element={<SearchPage />} />
-                    <Route path="/book-details/:id" element={<BooksDetailsPage />} />
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/admin/dashboard" element={<AdminPage />} />
-                    <Route path="*" element={<h1>404 not found</h1>} />
-                </Routes>
-            </CartContext.Provider>
+        <CartContext.Provider value={{cartItems, totalAmount, setCartItems}}>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/books" element={<BooksPage />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/search" element={<SearchPage />} />
+                <Route path="/book-details/:id" element={<BooksDetailsPage />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/admin/dashboard" element={<AdminPage />} />
+                <Route path="/admin/managebook" element={<ManageBook />} />
+                <Route path="/admin/manageuser" element={<ManageUser />} />
+                <Route path="*" element={<h1>404 not found</h1>} />
+            </Routes>
+        </CartContext.Provider>
         </UserContext.Provider>
         </ScrollToTop>
     )
