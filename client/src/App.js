@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-import {Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AxiosLib } from './lib/axios'
 import ScrollToTop from "./ScrollToTop";
 
@@ -13,9 +13,10 @@ import SearchPage from "./pages/searchpage/SearchPage";
 import AdminPage from "./pages/admin dashboard/AdminPage";
 import ManageBook from "./pages/admin dashboard/ManageBook";
 import ManageUser from "./pages/admin dashboard/ManageUser";
+import AccountPage from "./pages/accountpage/AccountPage";
 
 
-export const UserContext = createContext();
+export const DataContext = createContext();
 export const CartContext = createContext({});
 
 const App = () => {
@@ -59,7 +60,7 @@ const App = () => {
 
     return(
         <ScrollToTop>
-        <UserContext.Provider value={{ userInfo, setUserInfo }}>
+        <DataContext.Provider value={{ userInfo, setUserInfo }}>
         <CartContext.Provider value={{cartItems, totalAmount, setCartItems}}>
             <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -69,13 +70,16 @@ const App = () => {
                 <Route path="/book-details/:id" element={<BooksDetailsPage />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/account" element={<AccountPage />} />
+
                 <Route path="/admin/dashboard" element={<AdminPage />} />
                 <Route path="/admin/managebook" element={<ManageBook />} />
                 <Route path="/admin/manageuser" element={<ManageUser />} />
+
                 <Route path="*" element={<h1>404 not found</h1>} />
             </Routes>
         </CartContext.Provider>
-        </UserContext.Provider>
+        </DataContext.Provider>
         </ScrollToTop>
     )
 }

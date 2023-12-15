@@ -31,7 +31,7 @@ const CartItemCard = ({ bookData }) => {
             <div className="cart-item-content-container">
                 <h2>{bookData.book_name}</h2>
                 <p>{bookData.author}</p>
-                <h3 className="cart-item-price">฿{bookData.price}</h3>
+                <h3 className="cart-item-price">{bookData.price} THB</h3>
 
                 {/* <div className="quantity-controls">
                     <button onClick={handleDecrease} className="quantity-button">-</button>

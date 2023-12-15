@@ -22,7 +22,7 @@ const CartItemsContainer = () => {
                             <CartItemCard key={item.id} bookData={item} />
                         ))}
 
-                        <h2>Total amount : ฿{totalAmount}</h2>
+                        <h2>Total amount : {totalAmount} THB</h2>
 
                         <button className="button-primary">Check out</button>
                     </React.Fragment>

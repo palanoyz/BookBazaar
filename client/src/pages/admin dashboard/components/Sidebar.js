@@ -1,12 +1,12 @@
 import React from "react";
 import "./sidebar.css"
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Sidebar = () => {
     return (
         <div className="sidebar-container">
             <ul className="sidebar">
-                <li>
+                <li >
                     <Link to="/admin/dashboard" className="sidebar-link">Admin Dashboard</Link>
                 </li>
                 <li>

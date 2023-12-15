@@ -39,7 +39,7 @@
 
 .product-list-button {
     display: inline-block;
-    background-color: #000;
+    background-color: var(--primary-button);
     width: 100%;
     padding: 0.5rem 0;
     text-align: center;
@@ -51,7 +51,7 @@
 }
 
 .product-list-button:hover {
-    background-color: var(--primary-button);
+    background-color: #000;
 }
 
 .card-btn-container {

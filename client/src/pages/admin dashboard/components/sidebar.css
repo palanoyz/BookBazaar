@@ -1,18 +1,33 @@
 .sidebar-container {
-    display: flex;
+    width: 250px;
     background-color: rgb(255, 140, 52);
-    width: 15%;
-    height: 100vh;
+    height: 100%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    z-index: 1;
+    top: 1;
+    left: 0;
 }
 
 .sidebar li {
     display: flex;
-    padding-left: 2rem;
-    padding-top: 2rem;
+    align-items: center;
+    padding: 1.5rem 2rem; 
+    transition: 0.3s; 
+}
+
+.sidebar li:hover {
+    background-color: rgba(255, 255, 255, 0.2); 
 }
 
 .sidebar-link {
-    color: #222;
+    color: white;
     text-decoration: none;
     font-size: 18px;
+    margin-left: 0.5rem;
+    transition: 0.3s;
+}
+
+.sidebar-link:hover {
+    color: #222;
 }

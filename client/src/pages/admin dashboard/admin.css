@@ -1,3 +1,9 @@
-.adminpage {
-    display: flex;
+.admin-content {
+    padding: 1rem;
+    margin-left: 250px;
+    overflow-x: hidden;
+}
+
+.admin-content * {
+    word-wrap: break-word;
 }

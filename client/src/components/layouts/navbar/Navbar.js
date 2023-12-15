@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Cart } from "../../../assets/cart icon.svg";
+import { ReactComponent as Account } from "../../../assets/account.svg"
 import { AxiosLib } from '../../../lib/axios'
-import { UserContext } from "../../../App";
+import { DataContext } from "../../../App";
 
 const Navbar = ({ darkTheme, darkText }) => {
 
     const navigate = useNavigate()
-    const { userInfo } = useContext(UserContext);
+    const { userInfo } = useContext(DataContext);
     const token = userInfo?.loginState || false;
     const role = userInfo?.role || "";
     
@@ -46,6 +47,7 @@ const Navbar = ({ darkTheme, darkText }) => {
                     <div className="nav-links-container">
                         <a onClick={handleLogout} className={`${darkText? 'nav-links-dark' : 'nav-links'}`}>Logout</a>
                         <Link to="/cart" className="cart-link"><Cart /></Link>
+                        <Link to="/account" className={`${darkText? 'nav-links-dark' : 'nav-links'}`}><Account /></Link>
                     </div>
                 )
             }         

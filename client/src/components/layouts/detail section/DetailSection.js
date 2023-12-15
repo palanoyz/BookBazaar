@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "./detailsection.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { BookData } from "../../../data/BookData";
-import { UserContext, CartContext } from "../../../App";
+import { DataContext, CartContext } from "../../../App";
 import Swal from "sweetalert2";
 
 const DetailSection = () => {
@@ -11,7 +11,7 @@ const DetailSection = () => {
     const { id } = useParams();
     const [bookData, setBookData] = useState({});
 
-    const user = useContext(UserContext);
+    const user = useContext(DataContext);
     const {cartItems, setCartItems} = useContext(CartContext);
 
     useEffect(() => {
@@ -45,11 +45,10 @@ const DetailSection = () => {
 
                     <div className="book-detail-container">
                         <h2>{bookData.book_name}</h2>
-                        <p className="text-primary">{bookData.author}</p>
+                        <p><b>Author :</b> {bookData.author}</p>
+                        <p><b>Publisher :</b> {bookData.author}</p>
                         <p className="book-description">{bookData.book_description}</p>
-                        <p><b>Length</b>: {bookData.length} pages</p>
-                        <h3>฿{bookData.price}</h3>
-
+                        <h3>{bookData.price} THB</h3>
                         <a onClick={handleAddToCart} className="button-primary">Add to Cart</a>
                     </div>
 

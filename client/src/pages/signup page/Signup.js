@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./signup.css";
 import AuthBgImg from "../../assets/auth-bg 2.jpg"
 import Navbar from "../../components/layouts/navbar/Navbar";
@@ -42,7 +42,6 @@ const Signup = () => {
                     <div className="container">
                         <div className="content-wrapper">
                             <h2>Sign Up</h2>
-                            <p>Create a new account</p>
 
                             <form onSubmit={handelSignUp}>              
                                 <div className="form-group">
@@ -87,6 +86,7 @@ const Signup = () => {
                                 </div>
                             </form>
 
+                            <p>Already have an account? <Link to="/login">Login</Link></p>
                         </div>
                     </div>
                 </div>
