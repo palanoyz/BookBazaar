@@ -9,10 +9,9 @@ import Swal from "sweetalert2";
 
 const BookDetails = () => {
 
-    const navigate = useNavigate();
     const { id } = useParams();
+    const navigate = useNavigate();
     const [bookData, setBookData] = useState({});
-
     const user = useContext(DataContext);
     const { cartItems, setCartItems } = useContext(CartContext);
 

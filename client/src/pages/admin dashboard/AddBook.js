@@ -121,7 +121,7 @@ const AddBook = () => {
                     <h2>Add Books</h2>
                     <form className="addbook-form">
                         <div className="form-input-book">
-                            <label>Title: </label>
+                            <label>Title : </label>
                             <input
                                 type="text"
                                 name="title"
@@ -131,7 +131,7 @@ const AddBook = () => {
                         </div>
 
                         <div className="form-input-book">
-                            <label>Author: </label>
+                            <label>Author : </label>
                             <select name="author" onChange={handleChange}>
                                 <option>--Select Author--</option>
                                 {selectAuthor}
@@ -139,7 +139,7 @@ const AddBook = () => {
                         </div>
 
                         <div className="form-input-book">
-                            <label>Publisher: </label>
+                            <label>Publisher : </label>
                             <select name="publisher" onChange={handleChange}>
                                 <option>--Select Publisher--</option>
                                 {selectPublisher}
@@ -147,7 +147,7 @@ const AddBook = () => {
                         </div>
 
                         <div className="form-input-book">
-                            <label>Category: </label>
+                            <label>Category : </label>
                             <select name="category" onChange={handleChange}>
                                 <option>--Select Category--</option>
                                 {selectCategory}
@@ -155,7 +155,7 @@ const AddBook = () => {
                         </div>
 
                         <div className="form-input-book">
-                            <label>Price: </label>
+                            <label>Price : </label>
                             <input
                                 type="number"
                                 name="price"
@@ -166,7 +166,7 @@ const AddBook = () => {
                         </div>
 
                         <div className="form-input-book">
-                            <label>Image: </label>
+                            <label>Image : </label>
                             <input
                                 type="text"
                                 name="image"
@@ -176,8 +176,8 @@ const AddBook = () => {
                         </div>
 
                         <div className="form-input-book">
-                            <label>Description: </label>
-                            <input
+                            <label>Description : </label>
+                            <input className="form-input-book-desc"
                                 type="text"
                                 name="description"
                                 onChange={handleChange}

@@ -175,6 +175,45 @@ app.post('/api/addToCart', async (req, res) => {
     }
 })
 
+// get all books
+app.get('/api/gatallbooks', async (req, res) => {
+    try {
+        await connectDB();
+        const result = await client
+            .db("bookbazaar")
+            .collection("book")
+            .aggregate([
+                {
+                    $lookup: {
+                        from: "author",
+                        localField: "author",
+                        foreignField: "_id",
+                        as: "authorInfo"
+                    },
+                },
+                {
+                    $lookup: {
+                        from: "publisher",
+                        localField: "publisher",
+                        foreignField: "_id",
+                        as: "publisherInfo",
+                    },
+                },
+                {
+                    $lookup: {
+                        from: "category",
+                        localField: "category",
+                        foreignField: "_id",
+                        as: "categoryInfo",
+                    },
+                },
+            ])
+            .toArray();
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error);
+    }
+})
 // get book by id
 app.get('/api/getbook/:id', async (req, res) => {
     try {

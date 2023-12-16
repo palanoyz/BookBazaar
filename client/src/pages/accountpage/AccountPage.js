@@ -18,14 +18,14 @@ const AccountPage = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-        if (!userInfo.id) {
-            return;
-        }
-        await AxiosLib
-            .get(`/api/getAccount/${userInfo.id}`)
-            .then((res) => {
-                setUser(res.data);
-            });
+            if (!userInfo.id) {
+                return;
+            }
+            await AxiosLib
+                .get(`/api/getuser/${userInfo.id}`)
+                .then((res) => {
+                    setUser(res.data);
+                });
         };
         fetchUser();
     }, [userInfo.id]);
@@ -55,13 +55,13 @@ const AccountPage = () => {
     //         console.log(err);
     //     });
     // };
-        
+
 
     return (
         <section>
             <Navbar darkTheme={true} />
             <div className="accountpage">
-                <SidebarUser />      
+                <SidebarUser />
                 <div className="account-content">
                     <h2>My Account</h2>
                     <p><b>Username:</b> {user.username}</p>

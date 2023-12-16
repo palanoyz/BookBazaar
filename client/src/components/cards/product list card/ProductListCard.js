@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import "./productlistcard.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { AxiosLib } from "../../../lib/axios";
+import { DataContext } from "../../../App";
 
 const ProductListCard = ({ bookData }) => {
+
+
+
     return (
         <div className="product-list-card">
             <div className="product-list-img-container">

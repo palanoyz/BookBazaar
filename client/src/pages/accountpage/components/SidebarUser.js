@@ -8,19 +8,10 @@ const SidebarUser = () => {
             <h2>Menu</h2>
             <ul className="sidebaruser">
                 <li>
-                    <Link to="/" className="sidebaruser-link">Admin Dashboard</Link>
+                    <Link to="/account" className="sidebaruser-link">Change Password</Link>
                 </li>
                 <li>
-                    <Link to="/" className="sidebaruser-link">Add Books</Link>
-                </li>
-                <li>
-                    <Link to="/" className="sidebaruser-link">Manage Books</Link>
-                </li>
-                <li>
-                    <Link to="/" className="sidebaruser-link">Manage Author & Publisher</Link>
-                </li>
-                <li>
-                    <Link to="/" className="sidebaruser-link">Manage Users</Link>
+                    <Link to="/account" className="sidebaruser-link">My Books</Link>
                 </li>
             </ul>
         </div>

@@ -11,7 +11,7 @@ const AdminPage = () => {
             <div className="adminpage">          
                 <Sidebar />
                 <div className="admin-content">
-                    <h1>Dashboardddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</h1>
+                    <h1>Dashboard</h1>
                 </div>
             </div>
 

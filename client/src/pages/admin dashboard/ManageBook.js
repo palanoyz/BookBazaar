@@ -7,6 +7,21 @@ import { AxiosLib } from "../../lib/axios";
 import AdminCardBook from "./components/AdminCardBook";
 
 const ManageBook = () => {
+    const [databooks, setDatabooks] = useState([]);
+
+    useEffect(() => {
+        const getBooks = async () => {
+            AxiosLib
+                .get("/api/getallbooks")
+                .then((res) => {
+                    setDatabooks(res.data);
+                })
+                .catch((err) => console.log(err));
+        };
+        getBooks();
+    }, []);
+
+
     return (
         <section>
 
@@ -14,7 +29,10 @@ const ManageBook = () => {
             <div className="adminpage">
                 <Sidebar />
                 <div className="admin-content">
-                    <h1>Manage book</h1>
+                    <h2>Manage book</h2>
+                    <div className="h-full flex gap-10 p-10">
+                        <AdminCardBook databook={databooks} />
+                    </div>
                 </div>
             </div>
 

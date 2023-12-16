@@ -5,6 +5,7 @@
 .usercard {
     border: 1px solid black;
     padding: 1rem;
+    padding-left: 2rem;
     margin: 0.5rem;
     margin-left: 2rem;
     border-radius: 10px;

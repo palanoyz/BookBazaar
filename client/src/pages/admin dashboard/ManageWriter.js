@@ -43,21 +43,21 @@ const ManageWriter = () => {
     const addAuthor = async () => {
         AxiosLib.post("/admin/addAuthor", dataAuthor).then((res) => {
             console.log(res.data);
+            window.location.reload();
         });
-        window.location.reload();
     };
     const addPublisher = async () => {
         AxiosLib.post("/admin/addPublisher", dataPublisher).then((res) => {
             console.log(res.data);
+            window.location.reload();
         });
-        window.location.reload();
     };
 
     const addCategory = async () => {
         AxiosLib.post("/admin/addCategory", dataCategory).then((res) => {
             console.log(res.data);
+            window.location.reload();
         });
-        window.location.reload();
     };
 
     useEffect(() => {
