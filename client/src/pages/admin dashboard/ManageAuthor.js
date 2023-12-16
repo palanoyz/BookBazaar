@@ -78,9 +78,10 @@ const ManageAuthor = () => {
 
     return (
         <section>
+
             <Navbar darkTheme={true} />
-            <Sidebar />
             <div className="adminpage">
+                <Sidebar />
                 <div className="admin-content">
                     <h1>Manage Author & Publisher</h1>
                 </div>

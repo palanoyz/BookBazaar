@@ -100,8 +100,8 @@ const AddBook = () => {
 
     return (
         <section>
+            <Navbar darkTheme={true} />
             <div className="adminpage">
-                <Navbar darkTheme={true} />
                 <Sidebar />
                 <div className="admin-content">
                     <h2>Add books to stock</h2>

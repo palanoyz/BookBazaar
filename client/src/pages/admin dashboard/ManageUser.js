@@ -23,11 +23,12 @@ const ManageUser = () => {
 
     return (
         <section>
+
             <Navbar darkTheme={true} />
-            <Sidebar />
-            <div className="adminpage">
+            <div className="adminpage">               
+                <Sidebar />
                 <div className="admin-content">
-                    <h1>Manage user</h1>
+                    <h2>Manage user</h2>
 
                     <div>
                         <UserCard userData={userData} />

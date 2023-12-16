@@ -5,7 +5,6 @@ import Footer from "../../components/layouts/footer/Footer";
 import "./searchpage.css";
 import { BookData } from "../../data/BookData";
 import SearchResultCard from "../../components/cards/search result card/SearchResultCard";
-import SearchInputForm from "../../components/forms/search input form/SearchInputForm";
 
 const SearchPage = () => {
     const location = useLocation();
