@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./admin.css";
 import Navbar from "../../components/layouts/navbar/Navbar";
 import Sidebar from "./components/Sidebar";
-import { Link } from "react-router-dom";
 import { AxiosLib } from "../../lib/axios";
-import AdminCardBook from "./components/AdminCardBook";
+import WriterCard from "./components/WriterCard";
 
 const ManageWriter = () => {
 
@@ -42,52 +41,118 @@ const ManageWriter = () => {
     };
 
     const addAuthor = async () => {
-        AxiosLib.post("/api/addAuthor", dataAuthor).then((res) => {
+        AxiosLib.post("/admin/addAuthor", dataAuthor).then((res) => {
             console.log(res.data);
         });
+        window.location.reload();
     };
     const addPublisher = async () => {
-        AxiosLib.post("/api/addPublisher", dataPublisher).then((res) => {
+        AxiosLib.post("/admin/addPublisher", dataPublisher).then((res) => {
             console.log(res.data);
         });
+        window.location.reload();
     };
 
     const addCategory = async () => {
-        AxiosLib.post("/api/addCatagory", dataCategory).then((res) => {
+        AxiosLib.post("/admin/addCategory", dataCategory).then((res) => {
             console.log(res.data);
         });
+        window.location.reload();
     };
 
-    // useEffect(() => {
-    //     const getAuthor = async () => {
-    //         const res = await AxiosLib.get("/admin/getAPC/author");
-    //         setAuthor(res.data.result);
-    //     };
-    //     const getPublisher = async () => {
-    //         const res = await AxiosLib.get("/admin/getAPC/publisher");
-    //         setPublisher(res.data.result);
-    //     };
-    //     const getCategory = async () => {
-    //         const res = await AxiosLib.get("/admin/getAPC/category");
-    //         setCategory(res.data.result);
-    //     };
-    //     getAuthor();
-    //     getPublisher();
-    //     getCategory();
-    // }, []);
+    useEffect(() => {
+        const getAuthor = async () => {
+            const res = await AxiosLib.get("/admin/getAPC/author");
+            setAuthor(res.data.result);
+        };
+        const getPublisher = async () => {
+            const res = await AxiosLib.get("/admin/getAPC/publisher");
+            setPublisher(res.data.result);
+        };
+        const getCategory = async () => {
+            const res = await AxiosLib.get("/admin/getAPC/category");
+            setCategory(res.data.result);
+        };
+        getAuthor();
+        getPublisher();
+        getCategory();
+    }, []);
 
     return (
         <section>
-
             <Navbar darkTheme={true} />
             <div className="adminpage">
                 <Sidebar />
                 <div className="admin-content">
-                    <h1>Manage Writer</h1>
+                    <h2>Manage Writer</h2>
+
+                    <div className="add-writer-form-container">
+                        <form onSubmit={addAuthor} className="add-writer-form">
+                            <h3>Add Author</h3>
+                            <div className="add-writer-form-input">
+                                <label>Name: </label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    onChange={handleChangeAuthor}
+                                    placeholder="Author name"
+                                />
+                            </div>
+                            <button className="add-writer-btn">Add</button>
+                        </form>
+
+                        <form onSubmit={addPublisher} className="add-writer-form">
+                            <h3>Add Publisher</h3>
+                            <div className="add-writer-form-input">
+                                <label>Name: </label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    onChange={handleChangePublisher}
+                                    placeholder="Publisher name"
+                                />
+                            </div>
+                            <button className="add-writer-btn">Add</button>
+                        </form>
+
+                        <form onSubmit={addCategory} className="add-writer-form">
+                            <h3>Add Category</h3>
+                            <div className="add-writer-form-input">
+                                <label>Name : </label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    onChange={handleChangeCategory}
+                                    placeholder="Category name"
+                                />
+                            </div>
+                            <button className="add-writer-btn">Add</button>
+                        </form>
+                    </div>
+
+                    <div className="apc-container">
+                        <div>
+                            <h2>Author</h2>
+                            <div className="apc-typecard">
+                                <WriterCard data={Author} type={"author"} />
+                            </div>
+                        </div>
+                        <div>
+                            <h2>Publisher</h2>
+                            <div className="apc-typecard">
+                                <WriterCard data={Publisher} type={"publisher"} />
+                            </div>
+                        </div>
+                        <div>
+                            <h2>Category</h2>
+                            <div className="apc-typecard">
+                                <WriterCard data={Category} type={"category"} />
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-
             </div>
-
         </section>
     )
 }

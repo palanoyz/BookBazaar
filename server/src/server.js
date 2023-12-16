@@ -85,7 +85,7 @@ app.post('/api/login', async (req, res) => {
             return false;
         }
         const payload = { id: findEmail._id, role: findEmail.role };
-        const token = jwt.sign(payload, secret, { expiresIn: '1h' });
+        const token = jwt.sign(payload, secret, { expiresIn: '24h' });
         res.cookie('token', token, { httpOnly: true });
         res.status(200).json({ message: 'login success', result: findEmail });
     } catch (error) {
@@ -310,9 +310,9 @@ app.delete('/admin/deleteuser/:id', async (req, res) => {
 // add book
 app.post('/admin/addBook', async (req, res) => {
     try {
-        const { title, author, price, description, publisher, category, image } = req.body;
-        await client.connect();
-        const date = {
+        const { title, author, publisher, category, price, image, description } = req.body;
+        await connectDB();
+        const data = {
             title,
             author: new ObjectId(author),
             publisher: new ObjectId(publisher),

@@ -11,11 +11,11 @@ const AddBook = () => {
     const [dataPublisher, setDataPublisher] = useState([]);
     const [dataCategory, setDataCategory] = useState([]);
     const [dataBook, setDataBook] = useState({
-        title: "", 
+        title: "",
         author: "",
         publisher: "",
         category: "",
-        price: 0,    
+        price: 0,
         image: "",
         description: "",
     });
@@ -38,7 +38,6 @@ const AddBook = () => {
         formData.append("image", dataBook.image);
         formData.append("description", dataBook.description);
 
-
         AxiosLib
             .post("/admin/addBook", formData)
             .then((res) => {
@@ -55,7 +54,7 @@ const AddBook = () => {
     useEffect(() => {
         const getAuthor = async () => {
             try {
-                await AxiosLib.get("/api/getAPC/author").then((res) => {
+                await AxiosLib.get("/admin/getAPC/author").then((res) => {
                     setDataAuthor(res.data.result);
                 });
             } catch (error) {
@@ -64,7 +63,7 @@ const AddBook = () => {
         };
         const getPublisher = async () => {
             try {
-                await AxiosLib.get("/api/getAPC/publisher").then((res) => {
+                await AxiosLib.get("/admin/getAPC/publisher").then((res) => {
                     setDataPublisher(res.data.result);
                 });
             } catch (error) {
@@ -73,7 +72,7 @@ const AddBook = () => {
         };
         const getCategory = async () => {
             try {
-                await AxiosLib.get("/api/getAPC/category").then((res) => {
+                await AxiosLib.get("/admin/getAPC/category").then((res) => {
                     setDataCategory(res.data.result);
                 });
             } catch (error) {
@@ -82,7 +81,7 @@ const AddBook = () => {
         };
         getAuthor();
         getPublisher();
-        getPublisher();
+        getCategory();
     }, []);
 
 
@@ -102,7 +101,7 @@ const AddBook = () => {
         );
     });
 
-    const selectCategory = dataAuthor.map((item) => {
+    const selectCategory = dataCategory.map((item) => {
         return (
             <option value={item._id} key={item._id}>
                 {item.name}
@@ -123,26 +122,16 @@ const AddBook = () => {
                             <label>Title: </label>
                             <input
                                 type="text"
-                                name="nameBook"
+                                name="title"
                                 onChange={handleChange}
                                 placeholder="title"
                             />
                         </div>
 
                         <div className="form-input-book">
-                            <label>Price: </label>
-                            <input
-                                type="number"
-                                name="price"
-                                onChange={handleChange}
-                                placeholder="price"
-                            />
-                        </div>
-
-                        <div className="form-input-book">
                             <label>Author: </label>
                             <select name="author" onChange={handleChange}>
-                                <option >--Select Author--</option>
+                                <option>--Select Author--</option>
                                 {selectAuthor}
                             </select>
                         </div>
@@ -150,7 +139,7 @@ const AddBook = () => {
                         <div className="form-input-book">
                             <label>Publisher: </label>
                             <select name="publisher" onChange={handleChange}>
-                                <option >--Select Publisher--</option>
+                                <option>--Select Publisher--</option>
                                 {selectPublisher}
                             </select>
                         </div>
@@ -164,12 +153,13 @@ const AddBook = () => {
                         </div>
 
                         <div className="form-input-book">
-                            <label>Description: </label>
+                            <label>Price: </label>
                             <input
-                                type="text"
-                                name="description"
+                                type="number"
+                                name="price"
                                 onChange={handleChange}
-                                placeholder="description"
+                                placeholder="price"
+                                min="0"
                             />
                         </div>
 
@@ -180,6 +170,16 @@ const AddBook = () => {
                                 name="image"
                                 onChange={handleChange}
                                 placeholder="image url"
+                            />
+                        </div>
+
+                        <div className="form-input-book">
+                            <label>Description: </label>
+                            <input
+                                type="text"
+                                name="description"
+                                onChange={handleChange}
+                                placeholder="description"
                             />
                         </div>
 
