@@ -12,7 +12,9 @@ const SearchInputForm = ({ darkTheme }) => {
 
     const redirectToSearch = () => {
         if (searchField === '') {}
-        else navigate('/search', {state:searchField});
+        else {           
+            navigate('/search', {state:searchField});
+        }
     }
 
     return (

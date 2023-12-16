@@ -5,6 +5,7 @@ import Footer from "../../components/layouts/footer/Footer";
 import "./searchpage.css";
 import { BookData } from "../../data/BookData";
 import SearchResultCard from "../../components/cards/search result card/SearchResultCard";
+import SearchInputForm from "../../components/forms/search input form/SearchInputForm";
 
 const SearchPage = () => {
     const location = useLocation();
@@ -21,14 +22,16 @@ const SearchPage = () => {
     return (
         <section>
             <Navbar darkTheme={true} />
-
+            
             <div className="search-result-container">
                 <div className="container">
+                    
                     <h2>Search Result</h2>
 
                     {searchResult.map((result) => (
                         <SearchResultCard key={result.id} bookData={result} />
                     ))}
+
                 </div>
             </div>
 

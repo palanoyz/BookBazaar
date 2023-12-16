@@ -17,6 +17,7 @@ const Navbar = ({ darkTheme, darkText }) => {
         try {
             const result = await AxiosLib.post('/api/logout')
             if (result.status === 200) {
+                navigate('/')
                 window.location.reload();
             }
         } catch (error) {

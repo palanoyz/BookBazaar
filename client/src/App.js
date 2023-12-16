@@ -14,10 +14,11 @@ import AdminPage from "./pages/admin dashboard/AdminPage";
 import ManageBook from "./pages/admin dashboard/ManageBook";
 import ManageUser from "./pages/admin dashboard/ManageUser";
 import AccountPage from "./pages/accountpage/AccountPage";
+import AddBook from "./pages/admin dashboard/AddBook";
 
 
 export const DataContext = createContext();
-export const CartContext = createContext({});
+export const CartContext = createContext();
 
 const App = () => {
 
@@ -33,16 +34,16 @@ const App = () => {
         AxiosLib
         .get("/api/checkToken")
         .then((res) => {
-        setUserInfo({
-            id: res.data.token.id,
-            username: res.data.token.username,
-            email: res.data.token.email,
-            loginState: true,
-            role: res.data.token.role,
-        });
+            setUserInfo({
+                id: res.data.token.id,
+                username: res.data.token.username,
+                email: res.data.token.email,
+                loginState: true,
+                role: res.data.token.role,
+            });
         })
         .catch((err) => {
-        console.log(err);
+            console.log(err);
         });
     }, [userInfo]);
 
@@ -73,6 +74,7 @@ const App = () => {
                 <Route path="/account" element={<AccountPage />} />
 
                 <Route path="/admin/dashboard" element={<AdminPage />} />
+                <Route path="/admin/addbook" element={<AddBook />} />
                 <Route path="/admin/managebook" element={<ManageBook />} />
                 <Route path="/admin/manageuser" element={<ManageUser />} />
 

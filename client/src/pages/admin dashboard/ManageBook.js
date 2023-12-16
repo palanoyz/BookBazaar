@@ -8,13 +8,15 @@ import AdminCardBook from "./components/AdminCardBook";
 
 const ManageBook = () => {
     return (
-        <section>           
-            <Navbar darkTheme={true} />
-            <Sidebar />         
-            <div className="admin-content">
-                <h1>Manage book</h1>
-            </div>
-       
+        <section>
+            <div className="adminpage">    
+                <Navbar darkTheme={true} />
+                <Sidebar />         
+                <div className="admin-content">
+                    <h1>Manage book</h1>
+                </div>
+            </div>   
+
         </section>
     )
 }

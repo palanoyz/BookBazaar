@@ -97,7 +97,7 @@ app.put('/api/changepassword', async (req, res) => {
     try {
         const { id, password, newpassword } = req.body;
         await connectDB();
-        const findUser = await client.db("user").collection("user").findOne({ _id: new ObjectId(id) });
+        const findUser = await client.db("bookbazaar").collection("user").findOne({ _id: new ObjectId(id) });
         if (!findUser) {
             return res.status(400).send("User not found");
         }
@@ -184,15 +184,15 @@ app.get('/api/getbook/:id', async (req, res) => {
             .aggregate([
                 {
                     $lookup: {
-                        from: "Author",
+                        from: "author",
                         localField: "author",
                         foreignField: "_id",
-                        as: "authorObj",
+                        as: "authorInfo",
                     },
                 },
                 {
                     $lookup: {
-                        from: "Publisher",
+                        from: "publisher",
                         localField: "publisher",
                         foreignField: "_id",
                         as: "publisherInfo",
@@ -215,11 +215,55 @@ app.get('/api/getbook/:id', async (req, res) => {
     }
 })
 
+// Checkout
+app.post('/api/checkout', async (req, res) => {
+    try {
+        const {userID, bookID, totalAmount} = req.body;
+        const orderDetails = {
+            userID,
+            bookID,
+            totalAmount,
+            date : new Date()
+        };
+        await connectDB();
+        const result = await client.db("bookbazaar").collection("order").insertOne(orderDetails);
+        res.status(200).send({
+            checkout: "success",
+            data : result
+        });
+    } catch (error) {
+        console.log(error);       
+    }
+})
+
 
 
 
 
 // Admin permission
+
+// get all user
+app.get('/admin/getalluser', async (req, res) => {
+    try {
+        await connectDB();
+        const result = await client.db("bookbazaar").collection("user").find({role : "user"}).toArray(); 
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send({ message: "Internal server error" });
+    }
+})
+// delete user by id
+app.delete('/admin/deleteuser/:id', async (req, res) => {
+    try {
+        await connectDB();
+        const { id } = req.params;
+        const result = await client.db("bookbazaar").collection("user").deleteOne({ _id: new ObjectId(id) });
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+})
 
 // add book
 app.post('/admin/addBook', async (req, res) => {
@@ -257,6 +301,11 @@ app.delete('/admin/deletebook/:id', async (req, res) => {
         res.send(error);
     }
 })
+// update book
+app.put('/admin/updatebook', async (req, res) => {
+    
+})
+
 
 // add author
 app.post('/admin/addAuthor', async (req, res) => {
@@ -288,6 +337,19 @@ app.get('/admin/getAuthor/:name', async (req, res) => {
         res.status(200).send({result});
     } catch (error) {
         console.log("Error", error);   
+    }
+})
+// delete author or publisher
+app.delete('/admin/delete/:type/:id', async (req, res) => {
+    try {
+        const {type, id} = req.params;
+        await connectDB();
+        const result = await client.db("bookbazaar").collection(type).deleteOne({_id: new ObjectId(id)});
+        res.status(200).send({
+           result
+        });
+    } catch (error) {
+       console.log(error);
     }
 })
 

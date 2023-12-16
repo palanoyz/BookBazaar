@@ -17,10 +17,13 @@ const AccountPage = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
+        if (!userInfo.id) {
+            return;
+        }
         await AxiosLib
             .get(`/api/getAccount/${userInfo.id}`)
             .then((res) => {
-            setUser(res.data);
+                setUser(res.data);
             });
         };
         fetchUser();
@@ -54,7 +57,7 @@ const AccountPage = () => {
         
 
     return (
-        <>
+        <section>
             <Navbar darkTheme={true} />
             <div className="account-page">           
                 <h2>My Account</h2>
@@ -64,7 +67,7 @@ const AccountPage = () => {
                 </div>
             </div>
             <Footer />
-        </>
+        </section>
     );
 };
 

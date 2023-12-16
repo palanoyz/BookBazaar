@@ -1,3 +1,8 @@
+.adminpage {
+    width: 100vw;
+    height: 100vh;
+}
+
 .admin-content {
     padding: 1rem;
     margin-left: 250px;
@@ -6,4 +11,21 @@
 
 .admin-content * {
     word-wrap: break-word;
+}
+
+.admin-content h2 {
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+}
+
+.addbook-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-left: 4rem;
+    padding-top: 2rem;
+}
+
+.addbook-button {
+    width: 70px;
 }

@@ -9,6 +9,9 @@ const Sidebar = () => {
                 <li >
                     <Link to="/admin/dashboard" className="sidebar-link">Admin Dashboard</Link>
                 </li>
+                <li >
+                    <Link to="/admin/addbook" className="sidebar-link">Add Books</Link>
+                </li>
                 <li>
                     <Link to="/admin/managebook" className="sidebar-link">Manage Books</Link>
                 </li>

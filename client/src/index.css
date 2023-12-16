@@ -7,6 +7,14 @@
     font-family: Hanken Grotesk;
 }
 
+section {
+    background-color: rgb(255, 247, 241);
+}
+
+.text-book {
+    color: rgb(255, 118, 20);
+}
+
 :root {
     --primary-color: #fb995d;
     --primary-color-bright: #fa7727;

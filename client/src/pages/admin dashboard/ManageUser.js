@@ -6,13 +6,15 @@ import { Link } from "react-router-dom";
 
 const ManageUser = () => {
     return (
-        <section>           
-            <Navbar darkTheme={true} />
-            <Sidebar />         
-            <div className="admin-content">
-                <h1>Manage user</h1>
-            </div>
-            
+        <section>
+            <div className="adminpage">    
+                <Navbar darkTheme={true} />
+                <Sidebar />         
+                <div className="admin-content">
+                    <h1>Manage user</h1>
+                </div>
+            </div>   
+
         </section>
     )
 }

@@ -5,13 +5,14 @@ import Sidebar from "./components/Sidebar";
 
 const AdminPage = () => {
     return (
-        <section>           
-            <Navbar darkTheme={true} />
-            <Sidebar />         
-            <div className="admin-content">
-                <h1>Dashboarddsdfsdafdsgsdrgsfdgfsdgrsgrgregregdsgsdgsdggrgey456utghhgjhgkjg</h1>
-                <p>hello</p>
-            </div>
+        <section>
+            <div className="adminpage">    
+                <Navbar darkTheme={true} />
+                <Sidebar />         
+                <div className="admin-content">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>   
 
         </section>
     )
