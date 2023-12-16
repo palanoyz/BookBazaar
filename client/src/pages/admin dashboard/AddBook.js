@@ -29,17 +29,19 @@ const AddBook = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("title", dataBook.title);
-        formData.append("author", dataBook.author);
-        formData.append("publisher", dataBook.publisher);
-        formData.append("category", dataBook.category);
-        formData.append("price", dataBook.price);
-        formData.append("image", dataBook.image);
-        formData.append("description", dataBook.description);
+
+        const requestData = {
+            title: dataBook.title,
+            author: dataBook.author,
+            publisher: dataBook.publisher,
+            category: dataBook.category,
+            price: dataBook.price,
+            image: dataBook.image,
+            description: dataBook.description,
+        };
 
         AxiosLib
-            .post("/admin/addBook", formData)
+            .post("/admin/addBook", requestData)
             .then((res) => {
                 Swal.fire({
                     icon: "success",
