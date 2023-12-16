@@ -9,13 +9,15 @@ const AddBook = () => {
 
     const [dataAuthor, setDataAuthor] = useState([]);
     const [dataPublisher, setDataPublisher] = useState([]);
+    const [dataCategory, setDataCategory] = useState([]);
     const [dataBook, setDataBook] = useState({
-        title: "",
-        price: 0,
+        title: "", 
         author: "",
         publisher: "",
-        description: "",
+        category: "",
+        price: 0,    
         image: "",
+        description: "",
     });
 
     const handleChange = (e) => {
@@ -29,20 +31,21 @@ const AddBook = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("title", dataBook.title);
-        formData.append("price", dataBook.price);
         formData.append("author", dataBook.author);
         formData.append("publisher", dataBook.publisher);
-        formData.append("description", dataBook.description);
+        formData.append("category", dataBook.category);
+        formData.append("price", dataBook.price);
         formData.append("image", dataBook.image);
+        formData.append("description", dataBook.description);
+
 
         AxiosLib
-            .post("/api/postbook", formData)
+            .post("/admin/addBook", formData)
             .then((res) => {
                 Swal.fire({
                     icon: "success",
                     title: "Success",
-                    text: "Your book has been posted",
-                    footer: '<a href="#">Why do I have this issue?</a>',
+                    text: "The book has been added to the stock.",
                 });
                 console.log(res);
             })
@@ -50,25 +53,35 @@ const AddBook = () => {
     };
 
     useEffect(() => {
-        const getPublisher = async () => {
-            try {
-                await AxiosLib.get("/api/getWriterBy/Publisher").then((res) => {
-                    setDataPublisher(res.data.result);
-                });
-            } catch (error) {
-                console.log(error);
-            }
-        };
         const getAuthor = async () => {
             try {
-                await AxiosLib.get("/api/getWriterBy/Author").then((res) => {
+                await AxiosLib.get("/api/getAPC/author").then((res) => {
                     setDataAuthor(res.data.result);
                 });
             } catch (error) {
                 console.log(error);
             }
         };
+        const getPublisher = async () => {
+            try {
+                await AxiosLib.get("/api/getAPC/publisher").then((res) => {
+                    setDataPublisher(res.data.result);
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        const getCategory = async () => {
+            try {
+                await AxiosLib.get("/api/getAPC/category").then((res) => {
+                    setDataCategory(res.data.result);
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        };
         getAuthor();
+        getPublisher();
         getPublisher();
     }, []);
 
@@ -104,7 +117,7 @@ const AddBook = () => {
             <div className="adminpage">
                 <Sidebar />
                 <div className="admin-content">
-                    <h2>Add books to stock</h2>
+                    <h2>Add Books</h2>
                     <form className="addbook-form">
                         <div className="form-input-book">
                             <label>Title: </label>

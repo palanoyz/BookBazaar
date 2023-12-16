@@ -13,7 +13,7 @@ const SearchResultCard = ({ bookData }) => {
                 <p>{bookData.author}</p>
                 <h3 className="cart-item-price">{bookData.price} THB</h3>
 
-                <Link to={`/book-details/${bookData.id}`} className="detail-button">See Details</Link>
+                <Link to={`/bookdetails/${bookData.id}`} className="detail-button">See Details</Link>
             </div>
         </section>
     )

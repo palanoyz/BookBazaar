@@ -5,6 +5,7 @@ import Footer from '../../components/layouts/footer/Footer';
 import { AxiosLib } from '../../lib/axios';
 import Swal from 'sweetalert2';
 import { DataContext } from '../../App';
+import SidebarUser from './components/SidebarUser';
 
 const AccountPage = () => {
     const { userInfo } = useContext(DataContext);
@@ -59,9 +60,10 @@ const AccountPage = () => {
     return (
         <section>
             <Navbar darkTheme={true} />
-            <div className="account-page">           
-                <h2>My Account</h2>
-                <div className="user-info">
+            <div className="accountpage">
+                <SidebarUser />      
+                <div className="account-content">
+                    <h2>My Account</h2>
                     <p><b>Username:</b> {user.username}</p>
                     <p><b>Email:</b> {user.email}</p>
                 </div>

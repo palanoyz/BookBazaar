@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
-// import { Routes, Route } from 'react-router-dom';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AxiosLib } from './lib/axios'
 import ScrollToTop from "./ScrollToTop";
 
@@ -16,7 +15,7 @@ import ManageBook from "./pages/admin dashboard/ManageBook";
 import ManageUser from "./pages/admin dashboard/ManageUser";
 import AccountPage from "./pages/accountpage/AccountPage";
 import AddBook from "./pages/admin dashboard/AddBook";
-import ManageAuthor from "./pages/admin dashboard/ManageAuthor";
+import ManageWriter from "./pages/admin dashboard/ManageWriter";
 
 
 export const DataContext = createContext();
@@ -70,7 +69,7 @@ const App = () => {
                 <Route path="/books" element={<BooksPage />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/search" element={<SearchPage />} />
-                <Route path="/book-details/:id" element={<BooksDetailsPage />} />
+                <Route path="/bookdetails/:id" element={<BooksDetailsPage />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/account" element={<AccountPage />} />
@@ -79,7 +78,7 @@ const App = () => {
                 <Route path="/admin/addbook" element={<AddBook />} />
                 <Route path="/admin/managebook" element={<ManageBook />} />
                 <Route path="/admin/manageuser" element={<ManageUser />} />
-                <Route path="/admin/manageauthor" element={<ManageAuthor />} />
+                <Route path="/admin/managewriter" element={<ManageWriter />} />
 
                 <Route path="*" element={<h1>404 not found</h1>} />
             </Routes>

@@ -20,7 +20,7 @@ app.use(cors({
 }))
 
 app.listen(PORT, async () => {
-    console.log(`Server started at port ${PORT}`)
+    console.log(`Server running on port ${PORT}`)
 })
 const connectDB = async () => {
     try {
@@ -139,8 +139,8 @@ app.post('/api/logout', (req, res) => {
     }
 })
 
-// Account
-app.get('/api/getAccount/:id', async (req, res) => {
+// get user by id
+app.get('/api/getuser/:id', async (req, res) => {
     try {
         const { id } = req.params;
         await connectDB();
@@ -200,14 +200,14 @@ app.get('/api/getbook/:id', async (req, res) => {
                         as: "publisherInfo",
                     },
                 },
-                // {
-                //     $lookup: {
-                //         from: "Category",
-                //         localField: "category",
-                //         foreignField: "_id",
-                //         as: "categoryDetails",
-                //     },
-                // },
+                {
+                    $lookup: {
+                        from: "category",
+                        localField: "category",
+                        foreignField: "_id",
+                        as: "categoryInfo",
+                    },
+                },
             ]);
         const result = await matching.toArray();
         const book = await result.find((book) => book._id.toString() === id);
@@ -220,19 +220,59 @@ app.get('/api/getbook/:id', async (req, res) => {
 // Checkout
 app.post('/api/checkout', async (req, res) => {
     try {
-        const { userID, bookID, totalAmount } = req.body;
-        const orderDetails = {
+        const { userID, bookID, totalAmout } = req.body;
+        const transactionData = {
             userID,
             bookID,
-            totalAmount,
-            date: new Date()
+            totalAmout,
+            data: new Date(),
         };
         await connectDB();
-        const result = await client.db("bookbazaar").collection("order").insertOne(orderDetails);
+        bookID?.map(async (item) => {
+            const result = await client
+                .db("bookbazaar")
+                .collectionbookbazaar
+                .findOne({ _id: new ObjectId(item) });
+            const result2 = await client
+                .db("bookbazaar")
+                .collection("book")
+                .updateOne(
+                    { _id: result?._id },
+                    { $set: { sales: result?.sales + 1 } }
+                );
+            console.log(result2);
+        });
+        const result = await client
+            .db("bookbazaar")
+            .collection("order")
+            .insertOne(transactionData)
+            .catch((error) => {
+                console.log(error);
+            });
         res.status(200).send({
             checkout: "success",
-            data: result
+            data: result,
         });
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+// add to cart
+app.post('/api/addtocart', async (req, res) => {
+    try {
+        await connectDB();
+        const { userID, bookID } = req.query;
+        const data = {
+            userID: new ObjectId(String(userID)),
+            bookID: new ObjectId(String(bookID)),
+        };
+        const result = await client
+            .db("bookbazaar")
+            .collection("cart")
+            .insertOne(data);
+        res.status(200).send({ message: "Add to cart", result: result });
+        console.log("Add to cart");
     } catch (error) {
         console.log(error);
     }
@@ -272,14 +312,14 @@ app.post('/admin/addBook', async (req, res) => {
     try {
         const { title, author, price, description, publisher, category, image } = req.body;
         await client.connect();
-        const data = {
+        const date = {
             title,
             author: new ObjectId(author),
             publisher: new ObjectId(publisher),
-            // category : new ObjectId(category),
+            category: new ObjectId(category),
             price,
-            description,
             image,
+            description,
         };
         await client.db("bookbazaar").collection("book").insertOne(data);
         await client.close();
@@ -390,8 +430,19 @@ app.post('/admin/addCategory', async (req, res) => {
     }
 })
 
+// get book_info (author, publisher, category)
+app.get('/admin/getAPC/:type', async (req, res) => {
+    try {
+        await connectDB();
+        const { type } = req.params;
+        const result = await client.db("bookbazaar").collection(type).find({}).toArray();
+        res.status(200).send({ result });
+    } catch (error) {
+        console.log("Error", error);
+    }
+})
 // delete book_info (author, publisher, category)
-app.delete('/admin/deleteInfo/:type/:id', async (req, res) => {
+app.delete('/admin/deleteAPC/:type/:id', async (req, res) => {
     try {
         const { type, id } = req.params;
         await connectDB();

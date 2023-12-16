@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { AxiosLib } from "../../lib/axios";
 import AdminCardBook from "./components/AdminCardBook";
 
-const ManageAuthor = () => {
+const ManageWriter = () => {
 
     const [dataAuthor, setDataAuthor] = useState({
         name: "",
@@ -60,15 +60,15 @@ const ManageAuthor = () => {
 
     // useEffect(() => {
     //     const getAuthor = async () => {
-    //         const res = await AxiosLib.get("/api/getWriterBy/Author");
+    //         const res = await AxiosLib.get("/admin/getAPC/author");
     //         setAuthor(res.data.result);
     //     };
     //     const getPublisher = async () => {
-    //         const res = await AxiosLib.get("/api/getWriterBy/Publisher");
+    //         const res = await AxiosLib.get("/admin/getAPC/publisher");
     //         setPublisher(res.data.result);
     //     };
     //     const getCategory = async () => {
-    //         const res = await AxiosLib.get("/api/getWriterBy/Category");
+    //         const res = await AxiosLib.get("/admin/getAPC/category");
     //         setCategory(res.data.result);
     //     };
     //     getAuthor();
@@ -83,7 +83,7 @@ const ManageAuthor = () => {
             <div className="adminpage">
                 <Sidebar />
                 <div className="admin-content">
-                    <h1>Manage Author & Publisher</h1>
+                    <h1>Manage Writer</h1>
                 </div>
 
             </div>
@@ -92,4 +92,4 @@ const ManageAuthor = () => {
     )
 }
 
-export default ManageAuthor;
+export default ManageWriter;

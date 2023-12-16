@@ -5,6 +5,7 @@
 
 .list-container {
     padding-top: 4rem;
+    padding-bottom: 7rem;
     display: flex;
     justify-content: space-around;
 }
