@@ -72,6 +72,15 @@ const AddBook = () => {
         getPublisher();
     }, []);
 
+
+    const selectAuthor = dataAuthor.map((item) => {
+        return (
+            <option value={item._id} key={item._id}>
+                {item.name}
+            </option>
+        );
+    });
+
     const selectPublisher = dataPublisher.map((item) => {
         return (
             <option value={item._id} key={item._id}>
@@ -80,7 +89,7 @@ const AddBook = () => {
         );
     });
 
-    const selectAuthor = dataAuthor.map((item) => {
+    const selectCategory = dataAuthor.map((item) => {
         return (
             <option value={item._id} key={item._id}>
                 {item.name}
@@ -132,7 +141,15 @@ const AddBook = () => {
                                 {selectPublisher}
                             </select>
                         </div>
-            
+
+                        <div className="form-input-book">
+                            <label>Category: </label>
+                            <select name="category" onChange={handleChange}>
+                                <option>--Select Category--</option>
+                                {selectCategory}
+                            </select>
+                        </div>
+
                         <div className="form-input-book">
                             <label>Description: </label>
                             <input

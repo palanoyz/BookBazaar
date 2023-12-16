@@ -31,32 +31,34 @@ const connectDB = async () => {
     }
 }
 
-app.get('/', (req,res)=>{
+app.get('/', (req, res) => {
     res.send({ message: 'BookBazaar' })
 })
 
 // hash and compare password
 const saltRounds = 5;
+const hashPassword = async (password) => {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+}
 const matchPassword = async (password, hash) => {
     const isMatch = await bcrypt.compare(password, hash);
     return isMatch;
 }
-const hashPassword = async (password) => {
-    const salt = await bcrypt.genSalt(saltRounds); 
-    const hash = await bcrypt.hash(password, salt);
-    return hash;
-}
 
 // Sign Up
-app.post('/api/signup', async (req,res) => {
+app.post('/api/signup', async (req, res) => {
     try {
-        const { username, password, email ,role} = req.body;
+        const { username, password, email, role } = req.body;
         await connectDB();
         const createuser = {
             username,
             email,
-            password: await hashPassword(password), 
-            role: role || "user"
+            password: await hashPassword(password),
+            role: role || "user",
+            fname: "",
+            lname: "",
         };
         await client.db('bookbazaar').collection('user').insertOne(createuser);
         res.status(201).json(createuser);
@@ -68,7 +70,7 @@ app.post('/api/signup', async (req,res) => {
 })
 
 // Login
-app.post('/api/login', async (req,res) => {
+app.post('/api/login', async (req, res) => {
     try {
         await connectDB();
         const { email, password } = req.body;
@@ -85,7 +87,7 @@ app.post('/api/login', async (req,res) => {
         const payload = { id: findEmail._id, role: findEmail.role };
         const token = jwt.sign(payload, secret, { expiresIn: '1h' });
         res.cookie('token', token, { httpOnly: true });
-        res.status(200).json({ message: 'login success', result: findEmail});
+        res.status(200).json({ message: 'login success', result: findEmail });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'something went wrong' });
@@ -131,9 +133,9 @@ app.get('/api/checkToken', async (req, res) => {
 app.post('/api/logout', (req, res) => {
     try {
         res.clearCookie('token');
-        res.status(200).json({message : 'logout'});
+        res.status(200).json({ message: 'logout' });
     } catch (error) {
-        console.log(error);        
+        console.log(error);
     }
 })
 
@@ -150,7 +152,7 @@ app.get('/api/getAccount/:id', async (req, res) => {
         res.status(200).json(findUser);
     } catch (e) {
         res.status(500).json({ message: "Internal server error" });
-    }    
+    }
 })
 
 // Add to cart
@@ -169,7 +171,7 @@ app.post('/api/addToCart', async (req, res) => {
         res.status(200).send({ message: "Add to cart", result: result });
         console.log("Add to cart");
     } catch (error) {
-    console.log(error);
+        console.log(error);
     }
 })
 
@@ -218,21 +220,21 @@ app.get('/api/getbook/:id', async (req, res) => {
 // Checkout
 app.post('/api/checkout', async (req, res) => {
     try {
-        const {userID, bookID, totalAmount} = req.body;
+        const { userID, bookID, totalAmount } = req.body;
         const orderDetails = {
             userID,
             bookID,
             totalAmount,
-            date : new Date()
+            date: new Date()
         };
         await connectDB();
         const result = await client.db("bookbazaar").collection("order").insertOne(orderDetails);
         res.status(200).send({
             checkout: "success",
-            data : result
+            data: result
         });
     } catch (error) {
-        console.log(error);       
+        console.log(error);
     }
 })
 
@@ -246,7 +248,7 @@ app.post('/api/checkout', async (req, res) => {
 app.get('/admin/getalluser', async (req, res) => {
     try {
         await connectDB();
-        const result = await client.db("bookbazaar").collection("user").find({role : "user"}).toArray(); 
+        const result = await client.db("bookbazaar").collection("user").find({ role: "user" }).toArray();
         res.status(200).send(result);
     } catch (error) {
         res.status(500).send({ message: "Internal server error" });
@@ -267,13 +269,13 @@ app.delete('/admin/deleteuser/:id', async (req, res) => {
 
 // add book
 app.post('/admin/addBook', async (req, res) => {
-    try { 
+    try {
         const { title, author, price, description, publisher, category, image } = req.body;
         await client.connect();
         const data = {
             title,
-            author : new ObjectId(author),
-            publisher : new ObjectId(publisher),
+            author: new ObjectId(author),
+            publisher: new ObjectId(publisher),
             // category : new ObjectId(category),
             price,
             description,
@@ -303,28 +305,28 @@ app.delete('/admin/deletebook/:id', async (req, res) => {
 })
 // update book
 app.put('/admin/updatebook', async (req, res) => {
-    
+
 })
 
 
 // add author
 app.post('/admin/addAuthor', async (req, res) => {
-    try{
+    try {
         await connectDB();
-        const {name} = req.body;
-        if(!name){
-            res.status(400).send({message:"Please enter author's name"});
+        const { name } = req.body;
+        if (!name) {
+            res.status(400).send({ message: "Please enter author's name" });
             return false;
         }
-        const find = await client.db("bookbazaar").collection("author").findOne({name});
-        if(find){
-            res.status(400).send({message:"Author already exists"});
+        const find = await client.db("bookbazaar").collection("author").findOne({ name });
+        if (find) {
+            res.status(400).send({ message: "Author already exists" });
             return false;
         }
-        const result = await client.db("bookbazaar").collection("author").insertOne({name});
-        res.status(200).send({result});
+        const result = await client.db("bookbazaar").collection("author").insertOne({ name });
+        res.status(200).send({ result });
     }
-    catch(e){
+    catch (e) {
         console.log("Error", e);
     }
 })
@@ -333,43 +335,71 @@ app.get('/admin/getAuthor/:name', async (req, res) => {
     try {
         await connectDB();
         const { author } = req.params;
-        const result = await client.db("bookbazaar").collection("author").find({author}).toArray();
-        res.status(200).send({result});
+        const result = await client.db("bookbazaar").collection("author").find({ author }).toArray();
+        res.status(200).send({ result });
     } catch (error) {
-        console.log("Error", error);   
-    }
-})
-// delete author or publisher
-app.delete('/admin/delete/:type/:id', async (req, res) => {
-    try {
-        const {type, id} = req.params;
-        await connectDB();
-        const result = await client.db("bookbazaar").collection(type).deleteOne({_id: new ObjectId(id)});
-        res.status(200).send({
-           result
-        });
-    } catch (error) {
-       console.log(error);
+        console.log("Error", error);
     }
 })
 
 // add publisher
 app.post('/admin/addPublisher', async (req, res) => {
     try {
-        const {name} = req.body;
+        const { name } = req.body;
         await connectDB();
-        if(!name){
-            res.status(400).send({message:"Please enter publisher's name"});
+        if (!name) {
+            res.status(400).send({ message: "Please enter publisher's name" });
             return false;
         }
-        const find = await client.db("bookbazaar").collection("publisher").findOne({name});
-        if(find){
-            res.status(400).send({message:"Publisher already exists"});
+        const find = await client.db("bookbazaar").collection("publisher").findOne({ name });
+        if (find) {
+            res.status(400).send({ message: "Publisher already exists" });
             return false;
         }
-        const result = await client.db("bookbazaar").collection("publisher").insertOne({name});
-        res.status(200).send({result});
+        const result = await client.db("bookbazaar").collection("publisher").insertOne({ name });
+        res.status(200).send({ result });
     } catch (error) {
-        console.log("Error",error);       
+        console.log("Error", error);
+    }
+})
+
+// add category
+app.post('/admin/addCategory', async (req, res) => {
+    try {
+        const { name } = req.body;
+        await connectDB();
+        if (!name) {
+            res.status(400).send({ message: "Please enter category's name" });
+            return false;
+        }
+        const find = await client
+            .db("bookbazaar")
+            .collection("category")
+            .findOne({ name });
+        if (find) {
+            res.status(400).send({ message: "Category already exists" });
+            return false;
+        }
+        const result = await client
+            .db("bookbazaar")
+            .collection("category")
+            .insertOne({ name });
+        res.status(200).send({ result });
+    } catch (error) {
+        console.log("Error", error);
+    }
+})
+
+// delete book_info (author, publisher, category)
+app.delete('/admin/deleteInfo/:type/:id', async (req, res) => {
+    try {
+        const { type, id } = req.params;
+        await connectDB();
+        const result = await client.db("bookbazaar").collection(type).deleteOne({ _id: new ObjectId(id) });
+        res.status(200).send({
+            result
+        });
+    } catch (error) {
+        console.log(error);
     }
 })

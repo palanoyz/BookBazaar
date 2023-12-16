@@ -1,11 +1,7 @@
-.adminpage {
-    width: 100vw;
-    height: 100vh;
-}
-
 .admin-content {
-    padding: 1rem;
-    margin-left: 250px;
+    padding-top: 1rem;
+    padding-left: 2rem;
+    margin-left: 300px;
     overflow-x: hidden;
 }
 
@@ -13,9 +9,10 @@
     word-wrap: break-word;
 }
 
-.admin-content h2 {
-    padding-left: 1rem;
+.admin-content h1, .admin-content h2 {
+    padding-left: 1.5rem;
     padding-top: 0.5rem;
+    padding-bottom: 1rem;
 }
 
 .addbook-form {

@@ -9,9 +9,9 @@ import AdminCardBook from "./components/AdminCardBook";
 const ManageBook = () => {
     return (
         <section>
-            <div className="adminpage">    
-                <Navbar darkTheme={true} />
-                <Sidebar />         
+            <Navbar darkTheme={true} />
+            <Sidebar />
+            <div className="adminpage">           
                 <div className="admin-content">
                     <h1>Manage book</h1>
                 </div>
