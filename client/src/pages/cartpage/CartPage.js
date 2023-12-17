@@ -79,7 +79,7 @@ const CartPage = () => {
 
                     <CartItemCard dataCart={renderData} />
                     <h3>{data.length} items in cart</h3>
-                    <h3>Total : {calculateTotalPrice()} THB</h3>
+                    <h3>Total: {calculateTotalPrice()} THB</h3>
                     <button onClick={checkout} className="button-primary">Check out</button>
 
                 </div>

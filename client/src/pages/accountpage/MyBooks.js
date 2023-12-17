@@ -9,24 +9,22 @@ import MyBookCard from './components/MyBookCard';
 
 const MyBooks = () => {
     const { userInfo } = useContext(DataContext);
-    const [purchase, setPurchase] = useState([]);
+    const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        const getPurchase = async () => {
+        const fetchBooks = async () => {
             try {
                 await AxiosLib
-                    .get(`/api/mybooks?userID=${userInfo.id}`)
+                    .get(`/api/getmybooks?userID=${userInfo.id}`)
                     .then((res) => {
-                        setPurchase(res.data);
+                        setBooks(res.data);
                     });
-            } catch (err) {
-                console.log(err);
+            } catch (error) {
+                console.log(error);
             }
         };
-        getPurchase();
+        fetchBooks();
     }, [userInfo]);
-
-    console.log(purchase);
 
 
     return (
@@ -36,7 +34,9 @@ const MyBooks = () => {
                 <SidebarUser />
                 <div className="account-content">
                     <h2>My Books Collection</h2>
-                    <MyBookCard purchase={purchase} />
+                    <div className='bookcollection'>
+                        <MyBookCard data={books} />
+                    </div>
                 </div>
             </div>
         </section>

@@ -43,3 +43,15 @@
 .changepass-button:hover {
     background-color: green;
 }
+
+.bookcollection {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-row-gap: 1rem;
+    width: 20%;
+}
+
+.mybook-card img {
+    width: 200px;
+}
+

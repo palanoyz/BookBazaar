@@ -13,9 +13,9 @@ const SidebarUser = () => {
                 <li>
                     <Link to="/account/changepassword" className="sidebaruser-link">Change Password</Link>
                 </li>
-                {/* <li>
+                <li>
                     <Link to="/account/mybooks" className="sidebaruser-link">My Books</Link>
-                </li> */}
+                </li>
             </ul>
         </div>
     )

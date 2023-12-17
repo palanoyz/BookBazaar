@@ -20,7 +20,7 @@ app.use(cors({
 }))
 
 app.listen(PORT, async () => {
-    console.log(`Server running on port ${PORT}`)
+    console.log(`Server is running on port ${PORT}`)
 })
 const connectDB = async () => {
     try {
@@ -271,7 +271,8 @@ app.delete('/api/deleteBookInCart', async (req, res) => {
 //get books in cart
 app.get('/api/getBookInCart', async (req, res) => {
     try {
-        await connectDB();
+        //await connectDB();
+        await client.connect();
         const { userID } = req.query;
         const matching = await client
             .db("bookbazaar")
@@ -391,13 +392,12 @@ app.post('/api/checkout', async (req, res) => {
     }
 })
 
-// My books
-app.get('/api/mybooks', async (req, res) => {
+// get user's books collection
+app.get('/api/getmybooks', async (req, res) => {
     try {
+        await connectDB();
         const { userID } = req.query;
-        // await connectDB();
-        await client.connect();
-        const findBook = await client
+        const collection = await client
             .db("bookbazaar")
             .collection("transaction")
             .aggregate([
@@ -408,30 +408,39 @@ app.get('/api/mybooks', async (req, res) => {
                 },
                 {
                     $lookup: {
-                        from: "books",
+                        from: "book",
                         localField: "bookID",
                         foreignField: "_id",
-                        as: "book",
+                        as: "books",
                     },
                 },
                 {
+                    $unwind: "$books",
+                },
+                {
                     $project: {
-                        userID: 0,
-                        bookID: 0,
-                        "book.date": 0,
-                        "book.publisher": 0,
-                        "book.author": 0,
-                        "book.description": 0,
-                        "book.category": 0,
-                        "book.pdf": 0,
-                        "book.sales": 0,
+                        _id: 0,
+                        bookID: "$books._id",
+                        bookName: "$books.title",
+                        bookImage: "$books.image",
                     },
                 },
             ])
             .toArray();
-        res.status(200).json(findBook);
+        res.status(200).send(collection);
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+// Search book
+app.get('/api/searchbook', async (req, res) => {
+    try {
+        await connectDB();
+        const result = await client.db("bookbazaar").collection("book").find({}).toArray();
+        res.status(200).send(result);
     } catch (e) {
-        console.log("Error", e);
+        res.status(500).json({ message: "Internal server error" });
     }
 })
 

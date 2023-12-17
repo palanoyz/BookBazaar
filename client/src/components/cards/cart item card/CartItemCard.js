@@ -1,11 +1,8 @@
 import React, { useContext, useState } from "react";
 import "./cartitemcard.css";
-import { CartContext } from "../../../App";
 import { AxiosLib } from "../../../lib/axios";
 
 const CartItemCard = ({ dataCart }) => {
-
-    const { cartItems, setCartItems } = useContext(CartContext);
 
     const handleRemove = async (CartID) => {
         await AxiosLib.delete(`/api/deleteBookinCart/?id=${CartID}`);
