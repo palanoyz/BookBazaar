@@ -27,7 +27,8 @@ const ChangePassword = () => {
             if (newPassword.newpassword !== newPassword.confirmpassword) {
                 Swal.fire({
                     icon: "error",
-                    title: "Old password not match!",
+                    title: "Oops...",
+                    text: "Old Password not match!",
                 });
                 return false;
             }
@@ -36,14 +37,16 @@ const ChangePassword = () => {
                 .then((res) => {
                     Swal.fire({
                         icon: "success",
-                        title: "Password changed!",
+                        title: "Success",
+                        text: "Password Changed!",
                     });
                     console.log(res);
                 });
         } catch (error) {
             Swal.fire({
                 icon: "error",
-                title: "Old password not match!",
+                title: "Oops...",
+                text: "Old Password not match!",
             });
         }
     };
@@ -56,7 +59,7 @@ const ChangePassword = () => {
                 <SidebarUser />
                 <div className="account-content">
                     <h2>Change Password</h2>
-                    <form className="addbook-form">
+                    <form onSubmit={handleSubmit} className="addbook-form">
                         <div className="form-input-book">
                             <label>Old password : </label>
                             <input
@@ -84,7 +87,7 @@ const ChangePassword = () => {
                             />
                         </div>
 
-                        <button className="changepass-button" onClick={handleSubmit}>
+                        <button className="changepass-button">
                             Submit
                         </button>
                     </form>
