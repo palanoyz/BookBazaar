@@ -41,7 +41,7 @@
 .product-list-button {
     display: inline-block;
     background-color: var(--primary-button);
-    width: 100%;
+    width: 55%;
     padding: 0.5rem 0;
     text-align: center;
     color: white;

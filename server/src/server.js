@@ -155,26 +155,6 @@ app.get('/api/getuser/:id', async (req, res) => {
     }
 })
 
-// Add to cart
-app.post('/api/addToCart', async (req, res) => {
-    try {
-        await connectDB();
-        const { userID, bookID } = req.query;
-        const data = {
-            userID: new ObjectId(String(userID)),
-            bookID: new ObjectId(String(bookID)),
-        };
-        const result = await client
-            .db("bookbazaar")
-            .collection("cart")
-            .insertOne(data);
-        res.status(200).send({ message: "Add to cart", result: result });
-        console.log("Add to cart");
-    } catch (error) {
-        console.log(error);
-    }
-})
-
 // get all books
 app.get('/api/gatallbooks', async (req, res) => {
     try {
@@ -256,49 +236,8 @@ app.get('/api/getbook/:id', async (req, res) => {
     }
 })
 
-// Checkout
-app.post('/api/checkout', async (req, res) => {
-    try {
-        const { userID, bookID, totalAmout } = req.body;
-        const transactionData = {
-            userID,
-            bookID,
-            totalAmout,
-            data: new Date(),
-        };
-        await connectDB();
-        bookID?.map(async (item) => {
-            const result = await client
-                .db("bookbazaar")
-                .collectionbookbazaar
-                .findOne({ _id: new ObjectId(item) });
-            const result2 = await client
-                .db("bookbazaar")
-                .collection("book")
-                .updateOne(
-                    { _id: result?._id },
-                    { $set: { sales: result?.sales + 1 } }
-                );
-            console.log(result2);
-        });
-        const result = await client
-            .db("bookbazaar")
-            .collection("order")
-            .insertOne(transactionData)
-            .catch((error) => {
-                console.log(error);
-            });
-        res.status(200).send({
-            checkout: "success",
-            data: result,
-        });
-    } catch (error) {
-        console.log(error);
-    }
-})
-
-// add to cart
-app.post('/api/addtocart', async (req, res) => {
+// Add to cart
+app.post('/api/addToCart', async (req, res) => {
     try {
         await connectDB();
         const { userID, bookID } = req.query;
@@ -312,6 +251,119 @@ app.post('/api/addtocart', async (req, res) => {
             .insertOne(data);
         res.status(200).send({ message: "Add to cart", result: result });
         console.log("Add to cart");
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+//get books in cart
+app.get('/api/getbooksincart', async (req, res) => {
+    try {
+        await connectDB();
+        const { userID } = req.query;
+        const matching = await client
+            .db("bookbazaar")
+            .collection("cart")
+            .aggregate([
+                {
+                    $match: {
+                        userID: new ObjectId(userID),
+                    },
+                },
+                {
+                    $lookup: {
+                        from: "book",
+                        localField: "bookID",
+                        foreignField: "_id",
+                        as: "bookInfo",
+                    },
+                },
+                {
+                    $unwind: "$bookInfo",
+                },
+                {
+                    $project: {
+                        _id: 1,
+                        bookID: 1,
+                        userID: 1,
+                        bookName: "$bookInfo.title",
+                        bookPrice: "$bookInfo.price",
+                        bookImage: "$bookInfo.image",
+                        bookAmount: 1,
+                        publisherID: "$bookInfo.publisher",
+                    },
+                },
+                {
+                    $lookup: {
+                        from: "publisher",
+                        localField: "publisherID",
+                        foreignField: "_id",
+                        as: "publisher",
+                    },
+                },
+                {
+                    $unwind: "$publisher",
+                },
+                {
+                    $project: {
+                        _id: 1,
+                        bookID: 1,
+                        userID: 1,
+                        bookName: 1,
+                        bookPrice: 1,
+                        bookImage: 1,
+                        bookAmount: 1,
+                        publisherName: "$publisher.name",
+                    },
+                }
+            ])
+            .toArray();
+        res.status(200).send({ message: "Get book in cart", matching });
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+// Checkout
+app.post('/api/checkout', async (req, res) => {
+    try {
+        const { userID, bookID, totalAmout } = req.body;
+
+        const book = Promise.all(bookID?.map(async (item) => {
+            return new ObjectId(item);
+        }));
+        const transactionData = {
+            userID,
+            bookID: await book,
+            totalAmout,
+            date: new Date(),
+        };
+        await connectDB();
+        bookID?.map(async (item) => {
+            const result = await client
+                .db("bookbazaar")
+                .collection("book")
+                .findOne({ _id: new ObjectId(item) });
+            const result2 = await client
+                .db("bookbazaar")
+                .collection("book")
+                .updateOne(
+                    { _id: result?._id },
+                    { $set: { sales: result?.sales + 1 } }
+                );
+            console.log(result2);
+        });
+        const result = await client
+            .db("bookbazaar")
+            .collection("transaction")
+            .insertOne(transactionData)
+            .catch((error) => {
+                console.log(error);
+            });
+        res.status(200).send({
+            checkout: "success",
+            data: result,
+        });
     } catch (error) {
         console.log(error);
     }

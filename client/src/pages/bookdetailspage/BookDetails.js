@@ -6,35 +6,38 @@ import { useParams, useNavigate } from "react-router-dom";
 import { BookData } from "../../data/BookData";
 import { DataContext, CartContext } from "../../App";
 import Swal from "sweetalert2";
+import { AxiosLib } from "../../lib/axios";
 
 const BookDetails = () => {
 
     const { id } = useParams();
-    const navigate = useNavigate();
-    const [bookData, setBookData] = useState({});
-    const user = useContext(DataContext);
-    const { cartItems, setCartItems } = useContext(CartContext);
+    const [data, setData] = useState({});
+
+    const { userInfo } = useContext(DataContext);
 
     useEffect(() => {
-        let newData = BookData.filter((book) => book.id === parseInt(id));
-        setBookData(newData[0]);
-    }, [])
-
-    const handleAddToCart = () => {
-        if (user) {
-            setCartItems([...cartItems, bookData]);
-            Swal.fire({
-                icon: "success",
-                title: "The book is added to the cart.",
-            });
-        } else {
-            navigate('/login');
-            Swal.fire({
-                icon: "error",
-                title: "Please Login or Sign up first.",
-            });
+        try {
+            const fetchData = async () => {
+                AxiosLib.get(`/api/getbook/${id}`).then((res) => {
+                    setData(res.data);
+                });
+            };
+            fetchData();
+        } catch (error) {
+            console.log(error);
         }
-    }
+    }, [data, id]);
+
+    const authorName = data.authorInfo?.map((item) => item.name);
+    const publisherName = data.publisherInfo?.map((item) => item.name);
+
+    const addtocart = () => {
+        try {
+            AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${id}`);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <section>
@@ -44,17 +47,17 @@ const BookDetails = () => {
                 <div className="container">
                     <div className="flex-container">
                         <div className="book-img-container">
-                            <img src={bookData.book_img} alt="book" />
+                            <img src={data.img} alt="book" />
                         </div>
 
                         <div className="book-detail-container">
-                            <h2>{bookData.book_name}</h2>
-                            <p><b>Author :</b> {bookData.author}</p>
-                            <p><b>Publisher :</b> {bookData.author}</p>
-                            <p><b>Category :</b> {bookData.category}</p>
-                            <p className="book-description">{bookData.book_description}</p>
-                            <h3>{bookData.price} THB</h3>
-                            <a onClick={handleAddToCart} className="button-primary">Add to Cart</a>
+                            <h2>{data.title}</h2>
+                            <p><b>Author :</b> {authorName}</p>
+                            <p><b>Publisher :</b> {publisherName}</p>
+                            <p><b>Category :</b> {data.category}</p>
+                            <p className="book-description">{data.description}</p>
+                            <h3>{data.price} THB</h3>
+                            <a onClick={addtocart} className="button-primary">Add to Cart</a>
                         </div>
 
                     </div>
