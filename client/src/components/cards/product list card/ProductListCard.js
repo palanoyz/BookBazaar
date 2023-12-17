@@ -12,33 +12,34 @@ const ProductListCard = ({ data }) => {
 
     const addtocart = (bookID) => {
         try {
-            AxiosLib.post(
-                `/api/addToCart?userID=${userInfo.id}&bookID=${bookID}`
-            );
+            AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${bookID}`);
         } catch (error) {
             console.log(error);
         }
     };
 
-
-    {data?.map((item) => {
-        return (
-            <div className="product-list-card">
-                <div className="product-list-img-container">
-                    <img src={item.image} alt="product-list-image" className="product-list-image" />
-                </div>
-                <div className="product-list-details-container">
-                    <h3>{item.title}</h3>
-                    <p className="author">{item.author}</p>
-                    <p className="price">{item.price} THB</p>
-                </div>
-                <div className="card-btn-container">
-                    <Link to={`/bookdetails/${item._id}`} className="product-list-button">See Details</Link>
-                    <FaCartPlus />
-                </div>
-            </div>
-        )
-    })}
+    return (
+        <>
+            {data?.map((item) => {
+                return (
+                    <div key={item._id} className="product-list-card">
+                        <div className="product-list-img-container">
+                            <img src={item.image} alt="product-list-image" className="product-list-image" />
+                        </div>
+                        <div className="product-list-details-container">
+                            <h3>{item.title}</h3>
+                            <p className="author">{item.authorInfo?.map((item) => item.name)}</p>
+                            <p className="price">{item.price} THB</p>
+                        </div>
+                        <div className="card-btn-container">
+                            <Link to={`/bookdetails/${item._id}`} className="product-list-button">See Details</Link>
+                            <a onClick={addtocart} className="addtocart-btn"><FaCartPlus /></a>
+                        </div>
+                    </div>
+                )
+            })}
+        </>
+    )
 }
 
 export default ProductListCard;

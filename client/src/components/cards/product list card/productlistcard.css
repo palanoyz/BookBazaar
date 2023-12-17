@@ -41,12 +41,12 @@
 .product-list-button {
     display: inline-block;
     background-color: var(--primary-button);
-    width: 55%;
+    width: 60%;
     padding: 0.5rem 0;
     text-align: center;
     color: white;
     text-decoration: none;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     transition: 0.2s ease-in;
     border-radius: 5px;
 }
@@ -58,4 +58,12 @@
 .card-btn-container {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    justify-content: center;
+}
+
+.addtocart-btn {
+    cursor: pointer;
+    padding-left: 2rem;
+    font-size: 25px;
+    align-items: center;
 }

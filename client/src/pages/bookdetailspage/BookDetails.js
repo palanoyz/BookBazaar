@@ -30,10 +30,11 @@ const BookDetails = () => {
 
     const authorName = data.authorInfo?.map((item) => item.name);
     const publisherName = data.publisherInfo?.map((item) => item.name);
+    const categoryName = data.categoryInfo?.map((item) => item.name);
 
-    const addtocart = () => {
+    const addtocart = (bookID) => {
         try {
-            AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${id}`);
+            AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${bookID}`);
         } catch (error) {
             console.log(error);
         }
@@ -47,14 +48,14 @@ const BookDetails = () => {
                 <div className="container">
                     <div className="flex-container">
                         <div className="book-img-container">
-                            <img src={data.img} alt="book" />
+                            <img src={data.image} alt="book" />
                         </div>
 
                         <div className="book-detail-container">
                             <h2>{data.title}</h2>
                             <p><b>Author :</b> {authorName}</p>
                             <p><b>Publisher :</b> {publisherName}</p>
-                            <p><b>Category :</b> {data.category}</p>
+                            <p><b>Category :</b> {categoryName}</p>
                             <p className="book-description">{data.description}</p>
                             <h3>{data.price} THB</h3>
                             <a onClick={addtocart} className="button-primary">Add to Cart</a>

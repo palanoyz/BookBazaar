@@ -8,20 +8,26 @@ import { AxiosLib } from "../../../lib/axios";
 
 const ProductListAll = () => {
 
+    const [data, setData] = useState([]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const res = await AxiosLib.get("/api/getallbooks");
+            setData(res.data);           
+          } catch (err) {
+            console.log(err);
+          }
+        };
+        fetchData();
+      }, []);
 
     return (
         <section className="product-list-all-container">
             <div className="container">
                 <div className="grid-container">
 
-                    {BookData.map((book) => {
-                        return (
-                            <div className="grid-item">
-                                <ProductListCard key={book.id} bookData={book} />
-                            </div>
-                        )
-                    })}
+                    <ProductListCard data={data} />
 
                 </div>
             </div>

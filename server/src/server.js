@@ -156,7 +156,7 @@ app.get('/api/getuser/:id', async (req, res) => {
 })
 
 // get all books
-app.get('/api/gatallbooks', async (req, res) => {
+app.get('/api/getallbooks', async (req, res) => {
     try {
         await connectDB();
         const result = await client
@@ -256,8 +256,20 @@ app.post('/api/addToCart', async (req, res) => {
     }
 })
 
+// Delete books in cart
+app.delete('/api/deleteBookInCart', async (req, res) => {
+    try {
+        await connectDB();
+        const { id } = req.query;
+        const deleteBookinCart = await client.db("bookbazaar").collection("cart").deleteOne({ _id: new ObjectId(id) });
+        res.status(200).send({ message: "Delete book in cart", deleteBookinCart });
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 //get books in cart
-app.get('/api/getbooksincart', async (req, res) => {
+app.get('/api/getBookInCart', async (req, res) => {
     try {
         await connectDB();
         const { userID } = req.query;
@@ -319,6 +331,16 @@ app.get('/api/getbooksincart', async (req, res) => {
             ])
             .toArray();
         res.status(200).send({ message: "Get book in cart", matching });
+    } catch (error) {
+        console.log(error);
+    }
+})
+// clear cart after checkout
+app.delete('/api/deleteBookAfterCheckout', async (req, res) => {
+    try {
+        const { id } = req.query;
+        const result = await client.db("bookbazaar").collection("Cart").deleteMany({ userID: new ObjectId(id) });
+        res.status(200).send({ message: "Delete book in cart", result });
     } catch (error) {
         console.log(error);
     }
