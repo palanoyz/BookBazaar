@@ -48,7 +48,7 @@ const Navbar = ({ darkTheme, darkText }) => {
                     <div className="nav-links-container">
                         <a onClick={handleLogout} className={`${darkText? 'nav-links-dark' : 'nav-links'}`}>Logout</a>
                         <Link to="/cart" className="cart-link"><Cart /></Link>
-                        <Link to="/account" className={`${darkText? 'nav-links-dark' : 'nav-links'}`}><Account /></Link>
+                        <Link to="/account/profile" className={`${darkText? 'nav-links-dark' : 'nav-links'}`}><Account /></Link>
                     </div>
                 )
             }         

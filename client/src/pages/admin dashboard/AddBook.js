@@ -186,7 +186,7 @@ const AddBook = () => {
                         </div>
 
                         <button className="addbook-button" onClick={handleSubmit}>
-                            submit
+                            Submit
                         </button>
                     </form>
                 </div>

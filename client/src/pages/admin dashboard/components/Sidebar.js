@@ -13,9 +13,9 @@ const Sidebar = () => {
                 <li>
                     <Link to="/admin/addbook" className="sidebar-link">Add Books</Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link to="/admin/managebook" className="sidebar-link">Manage Books</Link>
-                </li>
+                </li> */}
                 <li>
                     <Link to="/admin/managewriter" className="sidebar-link">Manage Writer</Link>
                 </li>

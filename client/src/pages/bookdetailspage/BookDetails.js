@@ -32,13 +32,18 @@ const BookDetails = () => {
     const publisherName = data.publisherInfo?.map((item) => item.name);
     const categoryName = data.categoryInfo?.map((item) => item.name);
 
-    const addtocart = (bookID) => {
+    const addtocart = () => {
         try {
-            AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${bookID}`);
+            AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${id}`)
+                .then(
+                    Swal.fire({                        
+                        icon: 'success',
+                        title: 'The book is added to cart!',
+                    }))
         } catch (error) {
             console.log(error);
         }
-    };
+    }
 
     return (
         <section>

@@ -1,22 +1,29 @@
 import React, { useContext } from "react";
 import "./productlistcard.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AxiosLib } from "../../../lib/axios";
 import { DataContext } from "../../../App";
 import { FaCartPlus } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const ProductListCard = ({ data }) => {
-    const navigate = useNavigate();
 
+    const { id } = useParams();
     const { userInfo } = useContext(DataContext);
 
     const addtocart = (bookID) => {
         try {
-            AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${bookID}`);
+            AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${bookID}`)
+            .then(
+                Swal.fire({                        
+                    icon: 'success',
+                    title: 'The book is added to cart!',
+                }))
         } catch (error) {
             console.log(error);
         }
-    };
+    }
+
 
     return (
         <>
@@ -33,7 +40,10 @@ const ProductListCard = ({ data }) => {
                         </div>
                         <div className="card-btn-container">
                             <Link to={`/bookdetails/${item._id}`} className="product-list-button">See Details</Link>
-                            <a onClick={addtocart} className="addtocart-btn"><FaCartPlus /></a>
+                            <a onClick={(e) => {
+                                e.stopPropagation();
+                                addtocart(item._id);
+                            }} className="addtocart-btn"><FaCartPlus /></a>
                         </div>
                     </div>
                 )

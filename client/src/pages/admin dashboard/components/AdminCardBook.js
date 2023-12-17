@@ -6,8 +6,6 @@ const AdminCardBook = ({ databook }) => {
 
     const id = databook.map((book) => book._id);
 
-    console.log(id);
-
     return (
         <section>
 

@@ -302,19 +302,19 @@ app.get('/api/getBookInCart', async (req, res) => {
                         bookPrice: "$bookInfo.price",
                         bookImage: "$bookInfo.image",
                         bookAmount: 1,
-                        publisherID: "$bookInfo.publisher",
+                        authorID: "$bookInfo.author",
                     },
                 },
                 {
                     $lookup: {
-                        from: "publisher",
-                        localField: "publisherID",
+                        from: "author",
+                        localField: "authorID",
                         foreignField: "_id",
-                        as: "publisher",
+                        as: "author",
                     },
                 },
                 {
-                    $unwind: "$publisher",
+                    $unwind: "$author",
                 },
                 {
                     $project: {
@@ -325,7 +325,7 @@ app.get('/api/getBookInCart', async (req, res) => {
                         bookPrice: 1,
                         bookImage: 1,
                         bookAmount: 1,
-                        publisherName: "$publisher.name",
+                        authorName: "$author.name",
                     },
                 }
             ])
@@ -335,11 +335,11 @@ app.get('/api/getBookInCart', async (req, res) => {
         console.log(error);
     }
 })
-// clear cart after checkout
+// clear cart when checkout
 app.delete('/api/deleteBookAfterCheckout', async (req, res) => {
     try {
         const { id } = req.query;
-        const result = await client.db("bookbazaar").collection("Cart").deleteMany({ userID: new ObjectId(id) });
+        const result = await client.db("bookbazaar").collection("cart").deleteMany({ userID: new ObjectId(id) });
         res.status(200).send({ message: "Delete book in cart", result });
     } catch (error) {
         console.log(error);
@@ -388,6 +388,50 @@ app.post('/api/checkout', async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+    }
+})
+
+// My books
+app.get('/api/mybooks', async (req, res) => {
+    try {
+        const { userID } = req.query;
+        // await connectDB();
+        await client.connect();
+        const findBook = await client
+            .db("bookbazaar")
+            .collection("transaction")
+            .aggregate([
+                {
+                    $match: {
+                        userID: userID,
+                    },
+                },
+                {
+                    $lookup: {
+                        from: "books",
+                        localField: "bookID",
+                        foreignField: "_id",
+                        as: "book",
+                    },
+                },
+                {
+                    $project: {
+                        userID: 0,
+                        bookID: 0,
+                        "book.date": 0,
+                        "book.publisher": 0,
+                        "book.author": 0,
+                        "book.description": 0,
+                        "book.category": 0,
+                        "book.pdf": 0,
+                        "book.sales": 0,
+                    },
+                },
+            ])
+            .toArray();
+        res.status(200).json(findBook);
+    } catch (e) {
+        console.log("Error", e);
     }
 })
 
@@ -458,7 +502,19 @@ app.delete('/admin/deletebook/:id', async (req, res) => {
 })
 // update book
 app.put('/admin/updatebook', async (req, res) => {
+    try {
+        const { _id, title, price } = req.body;
+        await connectDB();
+        const updateBook = {
+            title,
+            price
+        };
+        await client.db("bookbazaar").collection("book").updateOne({ _id }, { $set: updateBook });
+        res.status(201).json(updateBook);
+    } catch (error) {
+        console.log("Error", error);
 
+    }
 })
 
 

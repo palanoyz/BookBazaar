@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CartItemCard from "../../components/cards/cart item card/CartItemCard";
 import { AxiosLib } from "../../lib/axios";
 import { DataContext } from "../../App";
+import Swal from "sweetalert2";
 
 const CartPage = () => {
     const { userInfo } = useContext(DataContext);
@@ -53,8 +54,18 @@ const CartPage = () => {
             totalAmout: calculateTotalPrice(),
         };
         await AxiosLib.post("/api/checkout", data).then(() => {
-            handleDeleteCheckout(userInfo.id);
-            window.location.reload();
+            handleDeleteCheckout(userInfo.id).then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thank you for your order!',
+                    text: 'Enjoy reading :)',
+                    confirmButtonText: 'OK',
+                }).then((result) => {
+                    if (result.isConfirmed || result.isDismissed) {
+                        window.location.reload();
+                    }
+                });
+            });
         });
     }
 
@@ -66,25 +77,9 @@ const CartPage = () => {
             <section className="cart-items-container">
                 <div className="container">
 
-                    {/* {totalAmount === 0 ? (
-                        <h2>Your cart is empty.</h2>
-                    ) : (
-                        <React.Fragment>
-                            <h2>Cart</h2>
-
-                            {cartItems.map((item) => (
-                                <CartItemCard key={item.id} bookData={item} />
-                            ))}
-
-                            <h2>Total amount : {calculateTotalPrice} THB</h2>
-
-                            <button className="button-primary">Check out</button>
-                        </React.Fragment>
-                    )} */}
-
                     <CartItemCard dataCart={renderData} />
                     <h3>{data.length} items in cart</h3>
-                    <h3>{calculateTotalPrice()} THB</h3>
+                    <h3>Total : {calculateTotalPrice()} THB</h3>
                     <button onClick={checkout} className="button-primary">Check out</button>
 
                 </div>

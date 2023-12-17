@@ -16,6 +16,8 @@ import ManageUser from "./pages/admin dashboard/ManageUser";
 import AccountPage from "./pages/accountpage/AccountPage";
 import AddBook from "./pages/admin dashboard/AddBook";
 import ManageWriter from "./pages/admin dashboard/ManageWriter";
+import ChangePassword from "./pages/accountpage/ChangePassword";
+import MyBooks from "./pages/accountpage/MyBooks";
 
 
 export const DataContext = createContext();
@@ -72,7 +74,9 @@ const App = () => {
                 <Route path="/bookdetails/:id" element={<BooksDetailsPage />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/account" element={<AccountPage />} />
+                <Route path="/account/profile" element={<AccountPage />} />
+                <Route path="/account/changepassword" element={<ChangePassword />} />
+                <Route path="/account/mybooks" element={<MyBooks />} />
 
                 <Route path="/admin/dashboard" element={<AdminPage />} />
                 <Route path="/admin/addbook" element={<AddBook />} />

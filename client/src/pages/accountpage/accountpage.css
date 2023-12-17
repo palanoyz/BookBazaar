@@ -26,3 +26,20 @@
     padding-top: 0.5rem;
     padding-bottom: 1.5rem;
 } */
+
+.changepass-button {
+    color: white;
+    width: 70px;
+    padding: 0.5rem;
+    margin-top: 10px;
+    margin-left: 3rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+    background-color: rgb(14, 155, 14);
+    transition: 0.3s;
+}
+.changepass-button:hover {
+    background-color: green;
+}

@@ -5,21 +5,28 @@ import { AxiosLib } from '../../lib/axios';
 import Swal from 'sweetalert2';
 import { DataContext } from '../../App';
 import SidebarUser from './components/SidebarUser';
+import MyBookCard from './components/MyBookCard';
 
-const AccountPage = () => {
+const MyBooks = () => {
     const { userInfo } = useContext(DataContext);
-    const [user, setUser] = useState({});
+    const [purchase, setPurchase] = useState([]);
 
     useEffect(() => {
-        const fetchUser = async () => {
-            await AxiosLib
-                .get(`/api/getuser/${userInfo.id}`)
-                .then((res) => {
-                    setUser(res.data);
-                });
+        const getPurchase = async () => {
+            try {
+                await AxiosLib
+                    .get(`/api/mybooks?userID=${userInfo.id}`)
+                    .then((res) => {
+                        setPurchase(res.data);
+                    });
+            } catch (err) {
+                console.log(err);
+            }
         };
-        fetchUser();
-    }, [userInfo.id]);
+        getPurchase();
+    }, [userInfo]);
+
+    console.log(purchase);
 
 
     return (
@@ -28,13 +35,12 @@ const AccountPage = () => {
             <div className="accountpage">
                 <SidebarUser />
                 <div className="account-content">
-                    <h2>Account Informations</h2>
-                    <p><b>Username:</b> {user.username}</p>
-                    <p><b>Email:</b> {user.email}</p>
+                    <h2>My Books Collection</h2>
+                    <MyBookCard purchase={purchase} />
                 </div>
             </div>
         </section>
     );
 };
 
-export default AccountPage;
+export default MyBooks;
