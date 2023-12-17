@@ -10,6 +10,8 @@ const ProductListCard = ({ data }) => {
 
     const { id } = useParams();
     const { userInfo } = useContext(DataContext);
+    const token = userInfo?.loginState || false;
+    const role = userInfo?.role || "";
 
     const addtocart = (bookID) => {
         try {
@@ -18,8 +20,13 @@ const ProductListCard = ({ data }) => {
                 Swal.fire({                        
                     icon: 'success',
                     title: 'The book is added to cart!',
-                }))
-            if(!userInfo) {
+            }))
+            if(role=='admin') {
+                Swal.fire({                        
+                    icon: 'error',
+                    title: 'You are admin...',
+                })
+            } else if(!token) {
                 Swal.fire({                        
                     icon: 'error',
                     title: 'Please login first!',
