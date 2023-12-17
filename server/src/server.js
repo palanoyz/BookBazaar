@@ -20,7 +20,7 @@ app.use(cors({
 }))
 
 app.listen(PORT, async () => {
-    console.log(`Server is running on port ${PORT}`)
+    console.log(`Server's running at http://localhost:${PORT}`)
 })
 const connectDB = async () => {
     try {
@@ -85,7 +85,7 @@ app.post('/api/login', async (req, res) => {
             return false;
         }
         const payload = { id: findEmail._id, role: findEmail.role };
-        const token = jwt.sign(payload, secret, { expiresIn: '24h' });
+        const token = jwt.sign(payload, secret, { expiresIn: '1h' });
         res.cookie('token', token, { httpOnly: true });
         res.status(200).json({ message: 'login success', result: findEmail });
     } catch (error) {
