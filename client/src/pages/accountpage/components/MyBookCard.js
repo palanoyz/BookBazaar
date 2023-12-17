@@ -3,7 +3,7 @@ import '../accountpage.css';
 
 const MyBookCard = ({ purchase }) => {
     return (
-        <section>
+        <div>
             {purchase?.map((book) => {
                 return (
                     <div key={book._id}>
@@ -20,7 +20,7 @@ const MyBookCard = ({ purchase }) => {
                     </div>
                 );
             })}
-        </section>
+        </div>
     );
 };
 

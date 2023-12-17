@@ -28,7 +28,7 @@ const ChangePassword = () => {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "Old Password not match!",
+                    text: "Password not match!",
                 });
                 return false;
             }

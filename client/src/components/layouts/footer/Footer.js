@@ -1,19 +1,42 @@
 import React from "react";
 import "./footer.css";
+import fb from "../../../assets/Facebook_Logo.png";
+import gmail from "../../../assets/gmail-icon-free.png";
+import ig from "../../../assets/Instagram_icon.png";
+import twt from "../../../assets/twitter-x.png";
 
 const Footer = () => {
     return (
-        <section className="footer-container">
-            <div className="container">
-                <h2 className="contact-head">Contact</h2>
-            </div>
-
-            <div className="contact">
-                <a href="#"><img src="https://pngimg.com/d/facebook_logos_PNG19750.png" width="20px" /> Facebook</a>
-                <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Instagram-Icon.png/1024px-Instagram-Icon.png" width="20px" /> Instagram</a>
-                <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/281/281769.png" width="20px" /> Email</a>
-            </div>
-        </section>
+        <div class="footer-basic">
+            <footer>
+                <div class="social">
+                    <a href="#">
+                        <img src={ig} alt="Instagram" />
+                        <i class="icon ion-social-instagram"></i>
+                    </a>
+                    <a href="#">
+                        <img src={gmail} alt="Gmail" />
+                        <i class="icon ion-social-Gmail"></i>
+                    </a>
+                    <a href="#">
+                        <img src={twt} alt="Twitter" />
+                        <i class="icon ion-social-twitter"></i>
+                    </a>
+                    <a href="#">
+                        <img src={fb} alt="Facebook" />
+                        <i class="icon ion-social-facebook"></i>
+                    </a>
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#">Home</a></li>
+                    <li class="list-inline-item"><a href="#">Services</a></li>
+                    <li class="list-inline-item"><a href="#">About</a></li>
+                    <li class="list-inline-item"><a href="#">Terms</a></li>
+                    <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                </ul>
+                <p class="copyright">BookBazaar © 2023</p>
+            </footer>
+        </div>
     )
 }
 

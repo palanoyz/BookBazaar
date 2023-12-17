@@ -15,7 +15,7 @@ const BooksPage = () => {
 
             <div className="search-container">
                 <h2>Find the <span className="text-book">Books</span> you want</h2>
-                <SearchInputForm darkTheme={false} />
+                {/* <SearchInputForm darkTheme={false} /> */}
             </div>
 
             <ProductListAll />

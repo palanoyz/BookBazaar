@@ -12,6 +12,9 @@ const AccountPage = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
+            if (!userInfo.id) {
+                return;
+            }
             await AxiosLib
                 .get(`/api/getuser/${userInfo.id}`)
                 .then((res) => {
