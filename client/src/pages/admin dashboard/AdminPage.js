@@ -6,15 +6,15 @@ import Sidebar from "./components/Sidebar";
 const AdminPage = () => {
     return (
         <section>
-            
             <Navbar darkTheme={true} />
-            <div className="adminpage">          
+            <div className="adminpage">
                 <Sidebar />
                 <div className="admin-content">
-                    <h1>Dashboard</h1>
+                    <div className="dash-bg">
+                        {/* <h1>Dashboard</h1> */}
+                    </div>
                 </div>
             </div>
-
         </section>
     )
 }

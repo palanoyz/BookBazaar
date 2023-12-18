@@ -155,3 +155,11 @@
     grid-template-columns: auto auto auto auto;
     grid-row-gap: 2rem;
 }
+
+.dash-bg {
+    background-image: url("../../assets/fake dashboard.png");
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 2rem;
+}

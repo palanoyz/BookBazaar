@@ -377,8 +377,7 @@ app.post('/api/checkout', async (req, res) => {
                 .db("bookbazaar")
                 .collection("book")
                 .updateOne(
-                    { _id: result?._id },
-                    { $set: { sales: result?.sales + 1 } }
+                    { _id: result?._id }
                 );
             console.log(result2);
         });
