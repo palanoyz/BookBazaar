@@ -37,7 +37,7 @@ const Login = () => {
                     console.log(err);
                     Swal.fire({
                         icon: "error",
-                        title: "Error",
+                        title: "Incorrect email or password!",
                     });
                 });
         } catch (error) {

@@ -6,11 +6,16 @@ const MyBooks = async (req, res) => {
         const client = await dbConnect();
         const result = await client.query(`select Transaction._id , Transaction.totalAmount , Transaction.date , 
         CONCAT('[', GROUP_CONCAT(JSON_OBJECT(
-        '_id', Books._id, 'title', Books.title, 'author', Books.author,
-        'publisher', Books.publisher , 'Category' ,Books.Category , 'price', Books.price ,
-        'image', Books.image , 'description', Books.description
+        '_id', Manga._id ,
+        'title', Manga.title ,
+        'author', Manga.author ,
+        'publisher', Manga.publisher , 
+        'category' ,Manga.category , 
+        'price', Manga.price ,
+        'image', Manga.image , 
+        'description', Books.description
         )), ']') AS books
-        from Books join Transaction on Books._id = Transaction.book_id where user_id = ?` , userID)
+        FROM Manga JOIN Transaction ON Manga._id = Transaction.bookID where userID = ?` , userID)
         const tranbook = result[0]
         return res.status(200).send({
             tranbook

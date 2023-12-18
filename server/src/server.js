@@ -20,7 +20,7 @@ app.use(cors({
 }))
 
 app.listen(PORT, async () => {
-    console.log(`Server's running at http://localhost:${PORT}`)
+    console.log(`Server's running on port ${PORT}`)
 })
 const connectDB = async () => {
     try {

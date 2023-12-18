@@ -8,13 +8,16 @@ const secret = "GN000"; module.exports = { secret };
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }))
+app.use(cors({
+    credentials: true,
+    origin: [`http://localhost:3000`]
+}))
 
 
 // import
 const { signup } = require("./controller/SignupController");
 const { login } = require("./controller/LoginController");
-const { changePassword } = require('./controller/ChangePassword');
+const { ChangePassword } = require('./controller/ChangePassword');
 const { checkToken } = require('./controller/CheckToken');
 const { auth } = require("./middleware/auth");
 const { GetAllUser } = require('./controller/admin/GetAllUser');
@@ -31,6 +34,9 @@ const { DeleteWriter } = require('./controller/admin/DeleteWriter');
 const { GetWriter } = require('./controller/admin/GetWriter');
 const { DeleteBookInCart } = require('./controller/DeleteBookInCart');
 const { MyBooks } = require('./controller/MyBooks');
+const { DeleteBook } = require('./controller/admin/DeleteBook');
+const { GetAllBooks } = require('./controller/GetAllBooks');
+const { GetBookInCart } = require('./controller/admin/GetBookInCart');
 
 
 
@@ -38,19 +44,22 @@ const { MyBooks } = require('./controller/MyBooks');
 app.post('/api/signup', signup)
 app.post('/api/login', login) //
 app.get('/api/checkToken', checkToken)
-app.put('/api/changepassword', auth, changePassword) //
+app.put('/api/changepassword', auth, ChangePassword) //
 app.post('/api/logout', logout)
 app.get('/api/getuser/:id', GetUserByID)
 app.get('/api/getbook/:id', GetBookByID) //
 app.post('/api/addToCart', AddToCart)
 app.delete('/api/deleteBookInCart', DeleteBookInCart)
-//app.get('/api/getmybooks', MyBooks)
+app.get('/api/getmybooks', MyBooks)
+app.get('/api/getallbooks', GetAllBooks)
+app.get('/api/getBookInCart', GetBookInCart)
 
 app.get('/admin/getalluser', GetAllUser)
 app.post('/admin/addAuthor', AddAuthor)
 app.post('/admin/addPublisher', AddPublisher)
 app.post('/admin/addCategory', AddCategory)
 app.post('/admin/addBook', AddBook)
+app.delete('/admin/deletebook/:id', DeleteBook)
 app.delete('/admin/deleteuser/:id', DeleteUser)
 app.get('/admin/getAPC/:type', GetWriter)
 app.delete('/admin/deleteAPC/:type/:id', DeleteWriter)
@@ -58,5 +67,5 @@ app.delete('/admin/deleteAPC/:type/:id', DeleteWriter)
 
 
 app.listen(PORT, () => {
-    console.log(`Server's running at http://localhost:${PORT}`)
+    console.log(`Server's running on port ${PORT}`)
 })

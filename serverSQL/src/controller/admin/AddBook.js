@@ -20,13 +20,13 @@ const AddBook = async (req, res) => {
         const book = await client.query(`SELECT _id FROM Book WHERE title = "${data.title}"`)
 
         const findaut = await client.query(`SELECT * FROM Author WHERE name = "${data.author}"`)
-        await client.query(`INSERT INTO Author_Book SET book_id = ${book[0][0]._id} , author_id = ${findaut[0][0]._id}`)
+        await client.query(`INSERT INTO Author_Book SET bookID = ${book[0][0]._id} , authorID = ${findaut[0][0]._id}`)
 
         const findpub = await client.query(`SELECT * FROM Publisher WHERE name = "${data.publisher}"`);
-        await client.query(`INSERT INTO Publisher_Book SET book_id = ${book[0][0]._id} , publisher_id = ${findpub[0][0]._id}`)
+        await client.query(`INSERT INTO Publisher_Book SET bookID = ${book[0][0]._id} , publisherID = ${findpub[0][0]._id}`)
 
         const findcat = await client.query(`SELECT * FROM Category WHERE name = "${data.category}"`)
-        await client.query(`INSERT INTO Category_Book SET book_id = ${book[0][0]._id} , category_id = ${findcat[0][0]._id}`)
+        await client.query(`INSERT INTO Category_Book SET bookID = ${book[0][0]._id} , categoryID = ${findcat[0][0]._id}`)
 
         const result = await client.query(`SELECT * FROM Books WHERE _id = ${book[0][0]._id}`)
         res.send(result[0])
