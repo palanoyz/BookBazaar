@@ -31,9 +31,11 @@ const AccountPage = () => {
             <div className="accountpage">
                 <SidebarUser />
                 <div className="account-content">
-                    <h2>Account Informations</h2>
-                    <p><b>Username:</b> {user.username}</p>
-                    <p><b>Email:</b> {user.email}</p>
+                    <div className='account-card'>
+                        <h2>Account Informations</h2>
+                        <p><b>Username:</b> {user.username}</p>
+                        <p><b>Email:</b> {user.email}</p>
+                    </div>
                 </div>
             </div>
         </section>
