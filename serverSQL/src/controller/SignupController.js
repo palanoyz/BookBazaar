@@ -1,6 +1,5 @@
 const { dbConnect } = require("../lib/mysql")
 const { hashPassword } = require("../lib/ManagePassword")
-const { getErrorMessage, reportError } = require("../lib/Error")
 
 const signup = async (req, res) => {
     try {
@@ -11,8 +10,8 @@ const signup = async (req, res) => {
             email,
             password: await hashPassword(password),
             role: role || "user",
-            fname,
-            lname,
+            fname: "",
+            lname: "",
         };
 
         await client.query(`
@@ -30,7 +29,6 @@ const signup = async (req, res) => {
             message: "Sign up success",
         })
     } catch (error) {
-        reportError({ message: getErrorMessage(error) })
         console.log(error);
     }
 }

@@ -20,30 +20,31 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         try {
-        e.preventDefault();
-        AxiosLib
-            .post("/api/login", user)
-            .then((res) => {
-            console.log(res.data.result.role);
-            if (res.data.result.role === "admin") {
-                navigate("/admin/dashboard");
-                window.location.reload();
-            } else {
-                navigate("/");
-                window.location.reload();
-            }
-            })
-            .catch((err) => {
-                console.log(err);
-                Swal.fire({
-                    icon: "error",
-                    title: "Incorrect email or password!",
+            e.preventDefault();
+            AxiosLib
+                .post("/api/login", user)
+                .then((res) => {
+                    console.log(res.data.result.role);
+                    if (res.data.result.role === "admin") {
+                        navigate("/admin/dashboard");
+                        window.location.reload();
+                    } else {
+                        navigate("/");
+                        window.location.reload();
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                    });
                 });
-            });
         } catch (error) {
             console.log(error);
         }
-    };
+    }
+
 
 
     return (
@@ -63,8 +64,8 @@ const Login = () => {
                                     <label>Email</label>
                                     <input
                                         name="email"
-                                        type="email" 
-                                        className="form-input" 
+                                        type="email"
+                                        className="form-input"
                                         placeholder="Enter your email"
                                         onChange={handleChange}
                                     />
@@ -72,19 +73,19 @@ const Login = () => {
 
                                 <div className="form-group">
                                     <label>Password</label>
-                                    <input 
+                                    <input
                                         name="password"
-                                        type="password" 
-                                        className="form-input" 
-                                        placeholder="Enter your password" 
+                                        type="password"
+                                        className="form-input"
+                                        placeholder="Enter your password"
                                         onChange={handleChange}
                                     />
                                 </div>
 
                                 <div className="form-group">
-                                    <input 
-                                        type="submit" 
-                                        className="button-primary" 
+                                    <input
+                                        type="submit"
+                                        className="button-primary"
                                         value="Submit"
                                     />
                                 </div>

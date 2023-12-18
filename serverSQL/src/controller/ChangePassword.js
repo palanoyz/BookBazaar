@@ -1,6 +1,5 @@
 const { dbConnect } = require("../lib/mysql");
 const { hashPassword, matchPassword } = require("../lib/ManagePassword");
-const { getErrorMessage, reportError } = require("../lib/Error");
 
 const changePassword = async (req, res) => {
     try {
@@ -19,7 +18,6 @@ const changePassword = async (req, res) => {
         const newpass = await client.query(`UPDATE User SET password = ? WHERE _id = ?`, { hash, id });
         res.status(200).send("Change password successed");
     } catch (error) {
-        reportError({ message: getErrorMessage(error) })
         console.log(error);
     }
 }

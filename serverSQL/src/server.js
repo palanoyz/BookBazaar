@@ -16,14 +16,45 @@ const { signup } = require("./controller/SignupController");
 const { login } = require("./controller/LoginController");
 const { changePassword } = require('./controller/ChangePassword');
 const { checkToken } = require('./controller/CheckToken');
+const { auth } = require("./middleware/auth");
+const { GetAllUser } = require('./controller/admin/GetAllUser');
+const { AddAuthor } = require('./controller/admin/AddAuthor');
+const { AddPublisher } = require("./controller/admin/AddPublisher");
+const { AddCategory } = require("./controller/admin/AddCategory");
+const { AddBook } = require('./controller/admin/AddBook');
+const { DeleteUser } = require('./controller/admin/DeleteUser');
+const { logout } = require('./controller/LogoutController');
+const { GetUserByID } = require('./controller/GetUserByID');
+const { GetBookByID } = require('./controller/GetBookByID');
+const { AddToCart } = require('./controller/AddToCart');
+const { DeleteWriter } = require('./controller/admin/DeleteWriter');
+const { GetWriter } = require('./controller/admin/GetWriter');
+const { DeleteBookInCart } = require('./controller/DeleteBookInCart');
+const { MyBooks } = require('./controller/MyBooks');
 
 
 
 // routes
 app.post('/api/signup', signup)
-app.post('/api/login', login)
-app.get("/api/checkToken", checkToken)
-app.put('/api/changepassword', changePassword)
+app.post('/api/login', login) //
+app.get('/api/checkToken', checkToken)
+app.put('/api/changepassword', auth, changePassword) //
+app.post('/api/logout', logout)
+app.get('/api/getuser/:id', GetUserByID)
+app.get('/api/getbook/:id', GetBookByID) //
+app.post('/api/addToCart', AddToCart)
+app.delete('/api/deleteBookInCart', DeleteBookInCart)
+//app.get('/api/getmybooks', MyBooks)
+
+app.get('/admin/getalluser', GetAllUser)
+app.post('/admin/addAuthor', AddAuthor)
+app.post('/admin/addPublisher', AddPublisher)
+app.post('/admin/addCategory', AddCategory)
+app.post('/admin/addBook', AddBook)
+app.delete('/admin/deleteuser/:id', DeleteUser)
+app.get('/admin/getAPC/:type', GetWriter)
+app.delete('/admin/deleteAPC/:type/:id', DeleteWriter)
+
 
 
 app.listen(PORT, () => {
