@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./admin.css";
 import Navbar from "../../components/layouts/navbar/Navbar";
 import Sidebar from "./components/Sidebar";
-import { Link } from "react-router-dom";
 import { AxiosLib } from "../../lib/axios";
 import AdminCardBook from "./components/AdminCardBook";
-import ProductListCard from "../../components/cards/product list card/ProductListCard";
 
 const ManageBook = () => {
     const [databooks, setDatabooks] = useState([]);

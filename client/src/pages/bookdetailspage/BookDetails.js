@@ -2,9 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import "./bookdetails.css"
 import Navbar from "../../components/layouts/navbar/Navbar";
 import Footer from "../../components/layouts/footer/Footer";
-import { useParams, useNavigate } from "react-router-dom";
-import { BookData } from "../../data/BookData";
-import { DataContext, CartContext } from "../../App";
+import { useParams } from "react-router-dom";
+import { DataContext } from "../../App";
 import Swal from "sweetalert2";
 import { AxiosLib } from "../../lib/axios";
 
@@ -36,27 +35,29 @@ const BookDetails = () => {
 
     const addtocart = () => {
         try {
-            AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${id}`)
-            .then(
-                Swal.fire({                        
-                    icon: 'success',
-                    title: 'The book is added to cart!',
-            }))
-            if(role=='admin') {
-                Swal.fire({                        
+            if (role === 'admin') {
+                Swal.fire({
                     icon: 'error',
                     title: 'You are admin...',
                 })
-            } else if(!token) {
-                Swal.fire({                        
+            } else if (!token) {
+                Swal.fire({
                     icon: 'error',
                     title: 'Please login first!',
                 })
+            } else {
+                AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${id}`)
+                .then(Swal.fire({
+                    icon: 'success',
+                    title: 'The book is added to cart!',
+                }))
             }
         } catch (error) {
             console.log(error);
         }
     }
+
+    
 
     return (
         <section>

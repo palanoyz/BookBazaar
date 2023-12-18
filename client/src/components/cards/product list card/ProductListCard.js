@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./productlistcard.css";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AxiosLib } from "../../../lib/axios";
 import { DataContext } from "../../../App";
 import { FaCartPlus } from "react-icons/fa";
@@ -8,14 +8,13 @@ import Swal from "sweetalert2";
 
 const ProductListCard = ({ data }) => {
 
-    const { id } = useParams();
     const { userInfo } = useContext(DataContext);
     const token = userInfo?.loginState || false;
     const role = userInfo?.role || "";
 
     const addtocart = (bookID) => {
         try {
-            if (role == 'admin') {
+            if (role === 'admin') {
                 Swal.fire({
                     icon: 'error',
                     title: 'You are admin...',

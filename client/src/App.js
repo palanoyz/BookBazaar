@@ -9,7 +9,7 @@ import BooksDetailsPage from "./pages/bookdetailspage/BookDetails";
 import Login from "./pages/loginpage/Login";
 import Signup from "./pages/signup page/Signup";
 import CartPage from "./pages/cartpage/CartPage";
-import SearchPage from "./pages/searchpage/SearchPage";
+// import SearchPage from "./pages/searchpage/SearchPage";
 import AdminPage from "./pages/admin dashboard/AdminPage";
 import ManageBook from "./pages/admin dashboard/ManageBook";
 import ManageUser from "./pages/admin dashboard/ManageUser";

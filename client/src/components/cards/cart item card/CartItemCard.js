@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import "./cartitemcard.css";
 import { AxiosLib } from "../../../lib/axios";
 

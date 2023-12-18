@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import '../admin dashboard/admin.css';
 import './accountpage.css';
 import Navbar from '../../components/layouts/navbar/Navbar';
-import Footer from '../../components/layouts/footer/Footer';
 import { AxiosLib } from '../../lib/axios';
 import Swal from 'sweetalert2';
 import { DataContext } from '../../App';

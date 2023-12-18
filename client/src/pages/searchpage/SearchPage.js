@@ -27,9 +27,9 @@ const SearchPage = () => {
                     
                     <h2>Search Result</h2>
 
-                    {searchResult.map((result) => (
+                    {/* {searchResult.map((result) => (
                         <SearchResultCard key={result.id} bookData={result} />
-                    ))}
+                    ))} */}
 
                 </div>
             </div>

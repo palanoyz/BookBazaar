@@ -1,9 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import "./productlistall.css";
 import ProductListCard from "../../cards/product list card/ProductListCard";
-import { BookData } from "../../../data/BookData";
-import { DataContext } from "../../../App";
-import { useParams } from "react-router-dom";
 import { AxiosLib } from "../../../lib/axios";
 
 const ProductListAll = () => {

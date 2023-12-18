@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./admin.css";
 import Navbar from "../../components/layouts/navbar/Navbar";
 import Sidebar from "./components/Sidebar";
-import { Link } from "react-router-dom";
 import { AxiosLib } from "../../lib/axios";
 import UserCard from "./components/UserCard";
 

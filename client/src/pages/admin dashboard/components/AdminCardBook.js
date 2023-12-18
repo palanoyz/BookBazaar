@@ -1,15 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import "./admincardbook.css";
-import { Link, useParams } from "react-router-dom";
 import { AxiosLib } from "../../../lib/axios";
-import { DataContext } from "../../../App";
-import { FaCartPlus } from "react-icons/fa";
-import Swal from "sweetalert2";
 
 const AdminCardBook = ({ databook }) => {
-
-    const { id } = useParams();
-    const { userInfo } = useContext(DataContext);
 
     const deleteBook = (bookID) => {
         AxiosLib
@@ -28,7 +21,7 @@ const AdminCardBook = ({ databook }) => {
                 return (
                     <div key={item._id} className="aproduct-list-card">
                         <div className="aproduct-list-img-container">
-                            <img src={item.image} alt="aproduct-list-image" className="aproduct-list-image" />
+                            <img src={item.image} alt="product-list-image" className="aproduct-list-image" />
                         </div>
                         <div className="aproduct-list-details-container">
                             <h3>{item.title}</h3>

@@ -25,10 +25,10 @@ const Slider = () => {
     clearInterval(refreshInterval);
   };
 
-  const handleDotClick = (index) => {
-    setActive(index);
-    reloadSlider();
-  };
+  // const handleDotClick = (index) => {
+  //   setActive(index);
+  //   reloadSlider();
+  // };
 
   const reloadSlider = () => {
     stopInterval();

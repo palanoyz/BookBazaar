@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import './accountpage.css';
 import Navbar from '../../components/layouts/navbar/Navbar';
 import { AxiosLib } from '../../lib/axios';
-import Swal from 'sweetalert2';
 import { DataContext } from '../../App';
 import SidebarUser from './components/SidebarUser';
 import MyBookCard from './components/MyBookCard';

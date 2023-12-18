@@ -2,8 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import "./cartpage.css";
 import Navbar from "../../components/layouts/navbar/Navbar";
 import Footer from "../../components/layouts/footer/Footer";
-import { CartContext } from "../../App";
-import { useNavigate } from "react-router-dom";
 import CartItemCard from "../../components/cards/cart item card/CartItemCard";
 import { AxiosLib } from "../../lib/axios";
 import { DataContext } from "../../App";
@@ -53,7 +51,7 @@ const CartPage = () => {
             bookID: bookID,
             totalAmount: calculateTotalPrice(),
         };
-        if (data.totalAmount == 0) {
+        if (data.totalAmount === 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'No products in the cart',
