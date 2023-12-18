@@ -13,11 +13,11 @@ const Sidebar = () => {
                 <li>
                     <Link to="/admin/addbook" className="sidebar-link">Add Books</Link>
                 </li>
-                {/* <li>
-                    <Link to="/admin/managebook" className="sidebar-link">Manage Books</Link>
-                </li> */}
                 <li>
-                    <Link to="/admin/managewriter" className="sidebar-link">Manage Writer</Link>
+                    <Link to="/admin/managebook" className="sidebar-link">Update Books</Link>
+                </li>
+                <li>
+                    <Link to="/admin/managewriter" className="sidebar-link">Update Writer</Link>
                 </li>
                 <li>
                     <Link to="/admin/manageuser" className="sidebar-link">Manage Users</Link>

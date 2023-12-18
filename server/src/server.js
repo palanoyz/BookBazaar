@@ -50,8 +50,14 @@ const matchPassword = async (password, hash) => {
 // Sign Up
 app.post('/api/signup', async (req, res) => {
     try {
-        const { username, password, email, role } = req.body;
         await connectDB();
+        const { username, password, email, role } = req.body;
+        if (username === '' || email === '' || password === '') {
+            return res.status(400).send({
+                message: 'Enter email and Password',
+                success: false,
+            })
+        }
         const createuser = {
             username,
             email,

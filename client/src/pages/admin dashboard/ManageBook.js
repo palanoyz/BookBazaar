@@ -30,8 +30,8 @@ const ManageBook = () => {
             <div className="adminpage">
                 <Sidebar />
                 <div className="admin-content">
-                    <h2>Manage book</h2>
-                    <div className="h-full flex gap-10 p-10">
+                    <h2>Manage Books</h2>
+                    <div className="admincardbook-container">
                         <AdminCardBook databook={databooks} />
                     </div>
                 </div>

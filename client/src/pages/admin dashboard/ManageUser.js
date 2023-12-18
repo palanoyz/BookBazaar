@@ -28,7 +28,7 @@ const ManageUser = () => {
             <div className="adminpage">               
                 <Sidebar />
                 <div className="admin-content">
-                    <h2>Manage user</h2>
+                    <h2>Manage Users</h2>
 
                     <div>
                         <UserCard userData={userData} />

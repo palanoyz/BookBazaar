@@ -118,7 +118,7 @@ const AddBook = () => {
             <div className="adminpage">
                 <Sidebar />
                 <div className="admin-content">
-                    <h2>Add Books</h2>
+                    <h2>Post Books</h2>
                     <form className="addbook-form">
                         <div className="form-input-book">
                             <label>Title : </label>
