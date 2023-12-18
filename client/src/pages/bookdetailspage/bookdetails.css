@@ -41,6 +41,10 @@
     color: var(--primary-color-bright);
 }
 
+.detail-text {
+    color: var(--primary-color-bright);
+}
+
 /* .cart-button {
     display: inline-block;
     padding: 1rem 2rem;

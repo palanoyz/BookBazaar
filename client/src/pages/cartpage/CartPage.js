@@ -51,22 +51,30 @@ const CartPage = () => {
         const data = {
             userID: userInfo.id,
             bookID: bookID,
-            totalAmout: calculateTotalPrice(),
+            totalAmount: calculateTotalPrice(),
         };
-        await AxiosLib.post("/api/checkout", data).then(() => {
-            handleDeleteCheckout(userInfo.id).then(() => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Thank you for your order!',
-                    text: 'Enjoy reading :)',
-                    confirmButtonText: 'OK',
-                }).then((result) => {
-                    if (result.isConfirmed || result.isDismissed) {
-                        window.location.reload();
-                    }
+        if (data.totalAmount == 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'No products in the cart',
+                confirmButtonText: 'OK',
+            })
+        } else {
+            await AxiosLib.post("/api/checkout", data).then(() => {
+                handleDeleteCheckout(userInfo.id).then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thank you for your order!',
+                        text: 'Enjoy reading :)',
+                        confirmButtonText: 'OK',
+                    }).then((result) => {
+                        if (result.isConfirmed || result.isDismissed) {
+                            window.location.reload();
+                        }
+                    });
                 });
             });
-        });
+        }
     }
 
 

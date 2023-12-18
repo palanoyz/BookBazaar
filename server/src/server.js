@@ -164,7 +164,7 @@ app.get('/api/getuser/:id', async (req, res) => {
 // get all books
 app.get('/api/getallbooks', async (req, res) => {
     try {
-        await connectDB();
+        await client.connect();
         const result = await client
             .db("bookbazaar")
             .collection("book")

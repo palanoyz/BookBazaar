@@ -26,7 +26,8 @@ const SearchInputForm = ({ darkTheme }) => {
                 value={searchField}
                 onChange={handleChange}
             />
-            <button onClick={redirectToSearch} className="search-button">Search</button>
+            {/* <button onClick={redirectToSearch} className="search-button">Search</button> */}
+            <button className="search-button">Search</button>
         </div>
     )
 }

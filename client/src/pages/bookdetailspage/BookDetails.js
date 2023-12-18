@@ -71,9 +71,9 @@ const BookDetails = () => {
 
                         <div className="book-detail-container">
                             <h2>{data.title}</h2>
-                            <p><b>Author :</b> {authorName}</p>
-                            <p><b>Publisher :</b> {publisherName}</p>
-                            <p><b>Category :</b> {categoryName}</p>
+                            <p><b className="detail-text">Author :</b> {authorName}</p>
+                            <p><b className="detail-text">Publisher :</b> {publisherName}</p>
+                            <p><b className="detail-text">Category :</b> {categoryName}</p>
                             <p className="book-description">{data.description}</p>
                             <h3>{data.price} THB</h3>
                             <a onClick={addtocart} className="button-primary">Add to Cart</a>

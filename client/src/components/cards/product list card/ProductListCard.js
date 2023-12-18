@@ -15,22 +15,22 @@ const ProductListCard = ({ data }) => {
 
     const addtocart = (bookID) => {
         try {
-            AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${bookID}`)
-            .then(
-                Swal.fire({                        
-                    icon: 'success',
-                    title: 'The book is added to cart!',
-            }))
-            if(role=='admin') {
-                Swal.fire({                        
+            if (role == 'admin') {
+                Swal.fire({
                     icon: 'error',
                     title: 'You are admin...',
                 })
-            } else if(!token) {
-                Swal.fire({                        
+            } else if (!token) {
+                Swal.fire({
                     icon: 'error',
                     title: 'Please login first!',
                 })
+            } else {
+                AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${bookID}`)
+                .then(Swal.fire({
+                    icon: 'success',
+                    title: 'The book is added to cart!',
+                }))
             }
         } catch (error) {
             console.log(error);

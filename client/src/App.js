@@ -51,26 +51,14 @@ const App = () => {
     }, [userInfo]);
 
 
-    const [cartItems, setCartItems] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0);
-    useEffect(() => {
-        let total = 0;
-        cartItems.forEach((item) => {
-            total = total + item.price;
-        })
-
-        setTotalAmount(total);
-    },[cartItems])
-
     return(
         <ScrollToTop>
         <DataContext.Provider value={{ userInfo, setUserInfo }}>
-        <CartContext.Provider value={{cartItems, totalAmount, setCartItems}}>
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/books" element={<BooksPage />} />
                 <Route path="/cart" element={<CartPage />} />
-                <Route path="/search" element={<SearchPage />} />
+                {/* <Route path="/search" element={<SearchPage />} /> */}
                 <Route path="/bookdetails/:id" element={<BooksDetailsPage />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
@@ -86,7 +74,6 @@ const App = () => {
 
                 <Route path="*" element={<h1>404 not found</h1>} />
             </Routes>
-        </CartContext.Provider>
         </DataContext.Provider>
         </ScrollToTop>
     )

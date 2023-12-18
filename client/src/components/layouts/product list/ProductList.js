@@ -21,7 +21,7 @@ const ProductList = () => {
     return (
         <div className="product-list-container">
             <div className="container">
-                <h2>Recommended <span className="text-book">Books</span></h2>
+                <h1>Recommended <span className="text-book">Books</span></h1>
 
                 <div className="list-container">
 
