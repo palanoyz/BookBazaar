@@ -42,9 +42,9 @@ const { GetBookInCart } = require('./controller/admin/GetBookInCart');
 
 // routes
 app.post('/api/signup', signup)
-app.post('/api/login', login) //
+app.post('/api/login', login)
 app.get('/api/checkToken', checkToken)
-app.put('/api/changepassword', auth, ChangePassword) //
+app.put('/api/changepassword', auth, ChangePassword)
 app.post('/api/logout', logout)
 app.get('/api/getuser/:id', GetUserByID)
 app.get('/api/getbook/:id', GetBookByID) //

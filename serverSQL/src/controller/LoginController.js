@@ -31,7 +31,7 @@ const login = async (req, res) => {
         res.cookie('token', token, { httpOnly: true });
         res.status(200).send({
             message: "Login successful",
-            result: role
+            result: result[0][0]
         });
     } catch (error) {
         console.log(error);

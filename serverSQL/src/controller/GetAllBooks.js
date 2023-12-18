@@ -5,9 +5,7 @@ const GetAllBooks = async (req, res) => {
         const client = await dbConnect();
         const result = await client.query(`SELECT * FROM Manga`)
         const book = result[0]
-        return res.status(200).send({
-            book    
-        })
+        return res.status(200).send(book)
     } catch (error) {
         console.log(error);
     } 
