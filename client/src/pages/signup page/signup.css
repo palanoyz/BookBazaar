@@ -73,6 +73,7 @@ p.sign{
     font-size: 1rem;
     border-radius: 5px;
     width: 100%;
+    cursor: pointer;
 }
 .auth-btn:hover {
     background-color: #222;

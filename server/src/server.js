@@ -71,7 +71,7 @@ app.post('/api/signup', async (req, res) => {
         await client.close();
     }
     catch (error) {
-        console.log('Error', error);
+        console.log(error);
     }
 })
 
@@ -96,7 +96,6 @@ app.post('/api/login', async (req, res) => {
         res.status(200).json({ message: 'login success', result: findEmail });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'something went wrong' });
     }
 })
 
@@ -131,7 +130,7 @@ app.get('/api/checkToken', async (req, res) => {
         const decode = jwt.verify(token, secret);
         res.status(200).send({ message: "have token", token: decode });
     } catch (error) {
-        res.status(500).send({ message: "Something went wrong" });
+        console.log(error);
     }
 })
 
@@ -156,8 +155,8 @@ app.get('/api/getuser/:id', async (req, res) => {
             return false;
         }
         res.status(200).json(findUser);
-    } catch (e) {
-        res.status(500).json({ message: "Internal server error" });
+    } catch (error) {
+        console.log(error);
     }
 })
 
@@ -257,7 +256,6 @@ app.post('/api/addToCart', async (req, res) => {
             .collection("cart")
             .insertOne(data);
         res.status(200).send({ message: "Add to cart", result: result });
-        console.log("Add to cart");
     } catch (error) {
         console.log(error);
     }
@@ -355,7 +353,7 @@ app.delete('/api/deleteBookAfterCheckout', async (req, res) => {
 // Checkout
 app.post('/api/checkout', async (req, res) => {
     try {
-        const { userID, bookID, totalAmout } = req.body;
+        const { userID, bookID, totalAmount } = req.body;
 
         const book = Promise.all(bookID?.map(async (item) => {
             return new ObjectId(item);
@@ -363,23 +361,11 @@ app.post('/api/checkout', async (req, res) => {
         const transactionData = {
             userID,
             bookID: await book,
-            totalAmout,
+            totalAmount,
             date: new Date(),
         };
+
         await connectDB();
-        bookID?.map(async (item) => {
-            const result = await client
-                .db("bookbazaar")
-                .collection("book")
-                .findOne({ _id: new ObjectId(item) });
-            const result2 = await client
-                .db("bookbazaar")
-                .collection("book")
-                .updateOne(
-                    { _id: result?._id }
-                );
-            console.log(result2);
-        });
         const result = await client
             .db("bookbazaar")
             .collection("transaction")
@@ -443,8 +429,8 @@ app.get('/api/searchbook', async (req, res) => {
         await connectDB();
         const result = await client.db("bookbazaar").collection("book").find({}).toArray();
         res.status(200).send(result);
-    } catch (e) {
-        res.status(500).json({ message: "Internal server error" });
+    } catch (error) {
+        console.log(error);
     }
 })
 
@@ -461,7 +447,7 @@ app.get('/admin/getalluser', async (req, res) => {
         const result = await client.db("bookbazaar").collection("user").find({ role: "user" }).toArray();
         res.status(200).send(result);
     } catch (error) {
-        res.status(500).send({ message: "Internal server error" });
+        console.log(error);
     }
 })
 // delete user by id
@@ -473,7 +459,6 @@ app.delete('/admin/deleteuser/:id', async (req, res) => {
         res.status(200).send(result);
     } catch (error) {
         console.log(error);
-        res.send(error);
     }
 })
 
@@ -510,7 +495,6 @@ app.delete('/admin/deletebook/:id', async (req, res) => {
         res.status(200).send(result);
     } catch (error) {
         console.log(error);
-        res.send(error);
     }
 })
 // update book
@@ -525,8 +509,7 @@ app.put('/admin/updatebook', async (req, res) => {
         await client.db("bookbazaar").collection("book").updateOne({ _id }, { $set: updateBook });
         res.status(201).json(updateBook);
     } catch (error) {
-        console.log("Error", error);
-
+        console.log(error);
     }
 })
 
@@ -548,8 +531,8 @@ app.post('/admin/addAuthor', async (req, res) => {
         const result = await client.db("bookbazaar").collection("author").insertOne({ name });
         res.status(200).send({ result });
     }
-    catch (e) {
-        console.log("Error", e);
+    catch (error) {
+        console.log(error);
     }
 })
 // get author by name
@@ -560,7 +543,7 @@ app.get('/admin/getAuthor/:name', async (req, res) => {
         const result = await client.db("bookbazaar").collection("author").find({ author }).toArray();
         res.status(200).send({ result });
     } catch (error) {
-        console.log("Error", error);
+        console.log(error);
     }
 })
 
@@ -581,7 +564,7 @@ app.post('/admin/addPublisher', async (req, res) => {
         const result = await client.db("bookbazaar").collection("publisher").insertOne({ name });
         res.status(200).send({ result });
     } catch (error) {
-        console.log("Error", error);
+        console.log(error);
     }
 })
 
@@ -608,7 +591,7 @@ app.post('/admin/addCategory', async (req, res) => {
             .insertOne({ name });
         res.status(200).send({ result });
     } catch (error) {
-        console.log("Error", error);
+        console.log(error);
     }
 })
 
@@ -620,7 +603,7 @@ app.get('/admin/getwriter/:type', async (req, res) => {
         const result = await client.db("bookbazaar").collection(type).find({}).toArray();
         res.status(200).send({ result });
     } catch (error) {
-        console.log("Error", error);
+        console.log(error);
     }
 })
 // delete book_info (author, publisher, category)

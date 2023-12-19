@@ -8,7 +8,6 @@ import SearchResultCard from "../../components/cards/search result card/SearchRe
 
 const SearchPage = () => {
     const location = useLocation();
-    const [searchResult, setSearchResult] = useState([]);
 
     useEffect(() => {
         let searchValue = [];
@@ -16,15 +15,15 @@ const SearchPage = () => {
         searchValue = BookData.filter((data) => data.book_name.toLowerCase().includes(location.state.toLowerCase()));
 
         setSearchResult(searchValue);
-    },[])
+    }, [])
 
     return (
         <section>
             <Navbar darkTheme={true} />
-            
+
             <div className="search-result-container">
                 <div className="container">
-                    
+
                     <h2>Search Result</h2>
 
                     {/* {searchResult.map((result) => (
