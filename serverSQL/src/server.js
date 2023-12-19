@@ -32,11 +32,12 @@ const { GetBookByID } = require('./controller/GetBookByID');
 const { AddToCart } = require('./controller/AddToCart');
 const { DeleteWriter } = require('./controller/admin/DeleteWriter');
 const { GetWriter } = require('./controller/admin/GetWriter');
-const { DeleteBookInCart } = require('./controller/DeleteBookInCart');
+const { DeleteFromCart, DeleteBookAfterCheckout } = require('./controller/DeleteFromCart');
 const { MyBooks } = require('./controller/MyBooks');
 const { DeleteBook } = require('./controller/admin/DeleteBook');
 const { GetAllBooks } = require('./controller/GetAllBooks');
 const { GetBookInCart } = require('./controller/admin/GetBookInCart');
+const { Checkout } = require('./controller/Checkout');
 
 
 
@@ -49,10 +50,12 @@ app.post('/api/logout', logout)
 app.get('/api/getuser/:id', GetUserByID)
 app.get('/api/getbook/:id', GetBookByID)
 app.post('/api/addToCart', AddToCart)
-app.delete('/api/deleteBookInCart', DeleteBookInCart)
 app.get('/api/getmybooks', MyBooks)
 app.get('/api/getallbooks', GetAllBooks)
 app.get('/api/getBookInCart', GetBookInCart)
+app.delete('/api/deleteBookInCart', DeleteFromCart)
+app.delete('/api/deleteBookAfterCheckout', DeleteBookAfterCheckout)
+app.post('/api/checkout', Checkout)
 
 app.get('/admin/getalluser', GetAllUser)
 app.post('/admin/addAuthor', AddAuthor)
@@ -63,6 +66,7 @@ app.delete('/admin/deletebook/:id', DeleteBook)
 app.delete('/admin/deleteuser/:id', DeleteUser)
 app.get('/admin/getwriter/:type', GetWriter)
 app.delete('/admin/deletewriter/:type/:id', DeleteWriter)
+
 
 
 

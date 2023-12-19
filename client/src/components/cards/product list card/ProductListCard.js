@@ -51,7 +51,7 @@ const ProductListCard = ({ data }) => {
                             <p className="author">{item.authorInfo?.map((item) => item.name)}</p>
                             <p className="price">{item.price} THB</p>
                         </div>
-                        
+
                         <div className="card-btn-container">
 
                             <Link to={`/bookdetails/${item._id}`} className="product-list-button">See Details</Link>

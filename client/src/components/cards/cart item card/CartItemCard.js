@@ -13,6 +13,7 @@ const CartItemCard = ({ dataCart }) => {
 
         dataCart.map((item) => {
             return (
+                <>
                 <section key={item.bookID} className="cart-item">
                     <div className="cart-item-img-container">
                         <img src={item.bookImage} alt="cart-item-img" className="cart-item-img" />
@@ -25,6 +26,7 @@ const CartItemCard = ({ dataCart }) => {
                         <button onClick={() => handleRemove(item._id)} className="delete-button">Remove</button>
                     </div>
                 </section>
+                </>
             )
         })
     )
