@@ -22,11 +22,19 @@ const ProductList = () => {
         <div className="product-list-container">
             <div className="container">
                 <h1>Recommended <span className="text-book">Books</span></h1>
-
                 <div className="list-container">
 
-                    <ProductListCard data={data?.slice(2, 3)} />
-                    <ProductListCard data={data?.slice(14, 17)} />
+                    <ProductListCard data={data?.slice(1, 2)} />
+                    <ProductListCard data={data?.slice(20, 24)} />
+
+                </div>
+            </div>
+
+            <div className="container">
+                <h1><span className="text-book">New Release</span> Books</h1>
+                <div className="list-container">
+
+                    <ProductListCard data={data?.slice(25, 29)} />
 
                 </div>
             </div>

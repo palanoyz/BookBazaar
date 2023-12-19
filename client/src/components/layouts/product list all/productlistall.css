@@ -1,13 +1,15 @@
 .product-list-all-container {
     padding-top: 8rem;
     padding-bottom: 14rem;
-    margin-left: 8rem;
+    /* margin-left: 8rem; */
+
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     grid-row-gap: 5rem;
+    grid-column-gap: 5rem;
 }
 
 .grid-item {
