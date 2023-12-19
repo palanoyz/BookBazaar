@@ -34,7 +34,7 @@ const Footer = () => {
                     <li class="list-inline-item"><a>Terms</a></li>
                     <li class="list-inline-item"><a>Privacy Policy</a></li>
                 </ul>
-                <p class="copyright">Copyright 2023 © BookBazaar</p>
+                <p class="copyright">Copyright © 2023 BookBazaar.</p>
             </footer>
         </div>
     )

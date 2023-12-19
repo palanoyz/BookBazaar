@@ -62,15 +62,15 @@ const ManageWriter = () => {
 
     useEffect(() => {
         const getAuthor = async () => {
-            const res = await AxiosLib.get("/admin/getAPC/author");
+            const res = await AxiosLib.get("/admin/getwriter/author");
             setAuthor(res.data.result);
         };
         const getPublisher = async () => {
-            const res = await AxiosLib.get("/admin/getAPC/publisher");
+            const res = await AxiosLib.get("/admin/getwriter/publisher");
             setPublisher(res.data.result);
         };
         const getCategory = async () => {
-            const res = await AxiosLib.get("/admin/getAPC/category");
+            const res = await AxiosLib.get("/admin/getwriter/category");
             setCategory(res.data.result);
         };
         getAuthor();

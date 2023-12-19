@@ -56,7 +56,7 @@ const AddBook = () => {
     useEffect(() => {
         const getAuthor = async () => {
             try {
-                await AxiosLib.get("/admin/getAPC/author").then((res) => {
+                await AxiosLib.get("/admin/getwriter/author").then((res) => {
                     setDataAuthor(res.data.result);
                 });
             } catch (error) {
@@ -65,7 +65,7 @@ const AddBook = () => {
         };
         const getPublisher = async () => {
             try {
-                await AxiosLib.get("/admin/getAPC/publisher").then((res) => {
+                await AxiosLib.get("/admin/getwriter/publisher").then((res) => {
                     setDataPublisher(res.data.result);
                 });
             } catch (error) {
@@ -74,7 +74,7 @@ const AddBook = () => {
         };
         const getCategory = async () => {
             try {
-                await AxiosLib.get("/admin/getAPC/category").then((res) => {
+                await AxiosLib.get("/admin/getwriter/category").then((res) => {
                     setDataCategory(res.data.result);
                 });
             } catch (error) {

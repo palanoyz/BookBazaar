@@ -10,7 +10,7 @@ const checkToken = async (req, res) => {
         const decode = jwt.verify(token, secret);
         res.status(200).send({ message: "have token", token: decode });
     } catch (error) {
-        res.status(500).send({ message: "Something went wrong" });
+        console.log(error);
     }
 }
 

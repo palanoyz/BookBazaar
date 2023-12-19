@@ -58,7 +58,7 @@ const ChangePassword = () => {
                 <SidebarUser />
                 <div className="account-content">
                     <h2>Change Password</h2>
-                    <form onSubmit={handleSubmit} className="addbook-form">
+                    <form onSubmit={handleSubmit} className="changepass-form">
                         <div className="form-input-book">
                             <label>Old password : </label>
                             <input

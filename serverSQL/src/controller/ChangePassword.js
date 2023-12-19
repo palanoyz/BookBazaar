@@ -24,7 +24,6 @@ const ChangePassword = async (req, res) => {
         return res.status(200).send("Change password succeeded");
     } catch (error) {
         console.log(error);
-        return res.status(500).send("Internal Server Error");
     }
 };
 

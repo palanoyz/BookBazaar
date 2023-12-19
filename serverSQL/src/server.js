@@ -47,7 +47,7 @@ app.get('/api/checkToken', checkToken)
 app.put('/api/changepassword', auth, ChangePassword)
 app.post('/api/logout', logout)
 app.get('/api/getuser/:id', GetUserByID)
-app.get('/api/getbook/:id', GetBookByID) //
+app.get('/api/getbook/:id', GetBookByID)
 app.post('/api/addToCart', AddToCart)
 app.delete('/api/deleteBookInCart', DeleteBookInCart)
 app.get('/api/getmybooks', MyBooks)
@@ -61,8 +61,8 @@ app.post('/admin/addCategory', AddCategory)
 app.post('/admin/addBook', AddBook)
 app.delete('/admin/deletebook/:id', DeleteBook)
 app.delete('/admin/deleteuser/:id', DeleteUser)
-app.get('/admin/getAPC/:type', GetWriter)
-app.delete('/admin/deleteAPC/:type/:id', DeleteWriter)
+app.get('/admin/getwriter/:type', GetWriter)
+app.delete('/admin/deletewriter/:type/:id', DeleteWriter)
 
 
 

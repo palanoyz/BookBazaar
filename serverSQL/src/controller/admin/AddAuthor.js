@@ -10,7 +10,7 @@ const AddAuthor = async (req, res) => {
         }
         await client.query(`INSERT INTO Author(name) VALUES(?)`, name)
         return res.status(201).send({
-            message: "Add Author successed",
+            message: "Add Author success",
         })
     } catch (error) {
         console.log(error);

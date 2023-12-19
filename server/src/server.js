@@ -614,7 +614,7 @@ app.post('/admin/addCategory', async (req, res) => {
 })
 
 // get book_info (author, publisher, category)
-app.get('/admin/getAPC/:type', async (req, res) => {
+app.get('/admin/getwriter/:type', async (req, res) => {
     try {
         await connectDB();
         const { type } = req.params;
@@ -625,7 +625,7 @@ app.get('/admin/getAPC/:type', async (req, res) => {
     }
 })
 // delete book_info (author, publisher, category)
-app.delete('/admin/deleteAPC/:type/:id', async (req, res) => {
+app.delete('/admin/deletewriter/:type/:id', async (req, res) => {
     try {
         const { type, id } = req.params;
         await connectDB();

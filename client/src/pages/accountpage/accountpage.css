@@ -4,12 +4,6 @@
     height: 91.9vh;
 }
 
-/* img {
-    width: 100%;
-    height: 91.9vh;
-    object-fit: cover;
-} */
-
 .account-content {
     padding-top: 2rem;
     padding-left: 2rem;
@@ -61,3 +55,12 @@
     width: 200px;
 }
 
+.changepass-form {
+    display: flex;
+    flex-direction: column;
+    padding-left: 4rem;
+}
+
+.changepass-form label {
+    padding-top: 2rem;
+}

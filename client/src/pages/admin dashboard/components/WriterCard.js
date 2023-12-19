@@ -9,7 +9,7 @@ const WriterCard = ({ data, type }) => {
                     <p>{item.name}</p>
                     <button className="delete-writer-btn" onClick={() => {
                         AxiosLib
-                            .delete(`/admin/deleteAPC/${type}/${item._id}`)
+                            .delete(`/admin/deletewriter/${type}/${item._id}`)
                             .then(() => {
                                 window.location.reload();
                             });

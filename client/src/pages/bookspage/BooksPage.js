@@ -11,7 +11,7 @@ const BooksPage = () => {
             <Navbar darkTheme={true} />
 
             <div className="search-container">
-                <h2>GET YOUR <span className="text-book">FAVORITE</span> MANGA</h2>
+                <h2>Get Your <span className="text-book">Favorite</span> MANGA</h2>
                 <SearchInputForm darkTheme={false} />
             </div>
 

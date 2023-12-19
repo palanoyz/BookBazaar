@@ -2,11 +2,13 @@ const { dbConnect } = require("../../lib/mysql")
 
 const DeleteWriter = async (req, res) => {
     try {
-        const { type, id } = req.params;
+        const { id, type } = req.params;
         const client = await dbConnect();
-        await client.query(`DELETE FROM ${type} WHERE _id = ?`, id)
+        const check = await client.query(`SELECT * FROM ${type} WHERE _id = ${id}`)
+
+        await client.query(`DELETE FROM ${type} WHERE _id = ${id}`)
         return res.status(200).send({
-            message: "Delete author successed",
+            message: `Delete ${type} success`
         })
     } catch (error) {
         console.log(error);

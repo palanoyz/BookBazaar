@@ -13,10 +13,7 @@ const GetUserByID = async (req, res) => {
         const User = result[0][0]
         return res.status(200).send(User)
     } catch (error) {
-        reportError({ message: getErrorMessage(error) })
-        res.status(500).send({
-            meassage: "Error occurred while processing data"
-        });
+        console.log(error);
     }
 }
 

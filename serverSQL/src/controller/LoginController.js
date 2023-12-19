@@ -27,8 +27,8 @@ const login = async (req, res) => {
 
         const id = result[0][0]._id
         const role = result[0][0].role
-        const cookie = { id, role }
-        const token = jwt.sign(cookie, secret, { expiresIn: '1h' });
+        const payload = { id, role }
+        const token = jwt.sign(payload, secret, { expiresIn: '1h' });
         res.cookie('token', token, { httpOnly: true });
         res.status(200).send({
             message: "Login successful",

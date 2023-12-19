@@ -6,7 +6,7 @@ const DeleteBookInCart = async (req, res) => {
         const { id } = req.body;
         await client.query(`DELETE FROM Cart WHERE book_id = ${id}`)
         return res.status(200).send({
-            message: "Delete book in cart successed",
+            message: "Delete book in cart success",
         })
     } catch (error) {
         console.log(error);
