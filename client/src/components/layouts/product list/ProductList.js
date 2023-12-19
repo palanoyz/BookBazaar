@@ -25,7 +25,7 @@ const ProductList = () => {
                 <div className="list-container">
 
                     <ProductListCard data={data?.slice(1, 2)} />
-                    <ProductListCard data={data?.slice(20, 24)} />
+                    <ProductListCard data={data?.slice(10, 14)} />
 
                 </div>
             </div>
@@ -34,7 +34,7 @@ const ProductList = () => {
                 <h1><span className="text-book">New Release</span> Books</h1>
                 <div className="list-container">
 
-                    <ProductListCard data={data?.slice(25, 29)} />
+                    <ProductListCard data={data?.slice(22, 27)} />
 
                 </div>
             </div>
