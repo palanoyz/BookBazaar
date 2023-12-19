@@ -61,8 +61,7 @@
 }
 
 .card-btn-container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding: 0 1.2rem;
     justify-content: center;
 }
 

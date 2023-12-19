@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
 }
 
 .signup-img-container {
@@ -19,6 +20,12 @@
     padding: 1rem 0;
 }
 
+.form-group-btn {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+}
+
 .form-input {
     width: 100%;
     padding: 1rem;
@@ -32,10 +39,41 @@
 }
 
 .content-wrapper {
-    padding-right: 5rem;
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin-left: 70px;
 }
 
 .content-wrapper h2 {
     padding-bottom: 1rem;
     font-size: 2rem;
+    text-align: center;
+}
+
+p.sign{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.auth-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--primary-color-bright);
+    color: #fff;
+    text-decoration: none;
+    margin-top: 1rem;
+    box-shadow: 2px 2px 5px #ddd;
+    transition: 0.2s ease-in;
+    border: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    width: 100%;
+}
+.auth-btn:hover {
+    background-color: #222;
 }

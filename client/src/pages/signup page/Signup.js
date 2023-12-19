@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./signup.css";
-import AuthBgImg from "../../assets/auth-bg 2.jpg"
+import AuthBgImg from "../../assets/library.jpg"
 import Navbar from "../../components/layouts/navbar/Navbar";
 import { AxiosLib } from '../../lib/axios';
 import Swal from "sweetalert2";
@@ -107,16 +107,16 @@ const Signup = () => {
                                     />
                                 </div>
 
-                                <div className="form-group">
+                                <div className="form-group-btn">
                                     <input
                                         type="submit"
-                                        className="button-primary"
+                                        className="auth-btn"
                                         value="Submit"
                                     />
                                 </div>
                             </form>
 
-                            <p>Already have an account? <Link to="/login">Login</Link></p>
+                            <p className="sign" >Already have an account? <Link to="/login">Login</Link></p>
                         </div>
                     </div>
                 </div>

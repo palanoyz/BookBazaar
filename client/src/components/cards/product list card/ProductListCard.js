@@ -26,10 +26,10 @@ const ProductListCard = ({ data }) => {
                 })
             } else {
                 AxiosLib.post(`/api/addToCart?userID=${userInfo.id}&bookID=${bookID}`)
-                .then(Swal.fire({
-                    icon: 'success',
-                    title: 'The book is added to cart!',
-                }))
+                    .then(Swal.fire({
+                        icon: 'success',
+                        title: 'The book is added to cart!',
+                    }))
             }
         } catch (error) {
             console.log(error);
@@ -45,17 +45,24 @@ const ProductListCard = ({ data }) => {
                         <div className="product-list-img-container">
                             <img src={item.image} alt="product-list-image" className="product-list-image" />
                         </div>
+
                         <div className="product-list-details-container">
                             <h3>{item.title}</h3>
                             <p className="author">{item.authorInfo?.map((item) => item.name)}</p>
                             <p className="price">{item.price} THB</p>
                         </div>
+                        
                         <div className="card-btn-container">
+
                             <Link to={`/bookdetails/${item._id}`} className="product-list-button">See Details</Link>
+
                             <a onClick={(e) => {
                                 e.stopPropagation();
                                 addtocart(item._id);
-                            }} className="addtocart-btn"><FaCartPlus /></a>
+                            }} className="addtocart-btn">
+                                <FaCartPlus />
+                            </a>
+
                         </div>
                     </div>
                 )
