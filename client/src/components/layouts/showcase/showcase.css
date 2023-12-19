@@ -1,7 +1,8 @@
 .showcase-container {
     height: 100vh;
     width: 100%;
-    background-image: url('../../../assets/showcase-bg.jpg');
+    background-image: url('../../../assets/MANGA-Plus-MAX.jpg');
+    background-size: 1600px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -11,7 +12,7 @@
 .overlay {
     height: 100%;
     width: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.6);
     position: absolute;
     top: 0;
 }
@@ -26,3 +27,7 @@
     text-align: center;
     padding-bottom: 10px;
 }
+
+/* .showcase-content span {
+    color: var(--primary-color-bright);
+} */
