@@ -200,6 +200,7 @@ app.get('/api/getallbooks', async (req, res) => {
         console.log(error);
     }
 })
+
 // get book by id
 app.get('/api/getbook/:id', async (req, res) => {
     try {
@@ -308,7 +309,6 @@ app.get('/api/getBookInCart', async (req, res) => {
                         bookName: "$bookInfo.title",
                         bookPrice: "$bookInfo.price",
                         bookImage: "$bookInfo.image",
-                        bookAmount: 1,
                         authorID: "$bookInfo.author",
                     },
                 },
@@ -331,7 +331,6 @@ app.get('/api/getBookInCart', async (req, res) => {
                         bookName: 1,
                         bookPrice: 1,
                         bookImage: 1,
-                        bookAmount: 1,
                         authorName: "$author.name",
                     },
                 }

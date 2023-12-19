@@ -9,8 +9,8 @@ const dbConnect = () => {
             port: '3306',
             database: 'bookbazaar',
             waitForConnections: true,
-            connectionLimit: 10,
-            queueLimit: 0
+            queueLimit: 0,
+            connectionLimit: 10
         })
         .promise()
 
