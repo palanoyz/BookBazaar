@@ -14,9 +14,7 @@ const signup = async (req, res) => {
             lname: "",
         };
 
-        await client.query(`
-        INSERT INTO User(username, email, password, role, fname, lname) 
-        VALUES (?, ?, ?, ?, ?, ?)`, [
+        await client.query(`INSERT INTO User(username, email, password, role, fname, lname) VALUES (?, ?, ?, ?, ?, ?)`, [
            createuser.username,
            createuser.email,
            createuser.password,

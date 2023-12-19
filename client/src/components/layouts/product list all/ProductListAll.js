@@ -5,31 +5,31 @@ import { AxiosLib } from "../../../lib/axios";
 
 const ProductListAll = () => {
 
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const res = await AxiosLib.get("/api/getallbooks");
-            setData(res.data);           
-          } catch (err) {
-            console.log(err);
-          }
-        };
-        fetchData();
-      }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await AxiosLib.get("/api/getallbooks");
+        setData(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
 
-    return (
-        <section className="product-list-all-container">
-            <div className="container">
-                <div className="grid-container">
+  return (
+    <section className="product-list-all-container">
+      <div className="container">
+        <div className="grid-container">
 
-                    <ProductListCard data={data} />
+          <ProductListCard data={data} />
 
-                </div>
-            </div>
-        </section>
-    )
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export default ProductListAll;

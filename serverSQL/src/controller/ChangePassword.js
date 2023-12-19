@@ -5,23 +5,29 @@ const ChangePassword = async (req, res) => {
     try {
         const { id, password, newpassword } = req.body;
         const client = await dbConnect();
-        const result = await client.query(`SELECT * FROM User WHERE _id = ?`, id);
-        const user = result[0][0];
+        const result = await client.query(`SELECT * FROM User WHERE _id = ? `, id);
 
-        if (user === null) {
-            return res.status(400).send("User not found");
+        if (!id || !password || !newpassword) {
+            res.status(400).send({
+                message: "Please fill the form"
+            })
+        } else if (result[0][0] < 1) {
+            return res.status(400).send({
+                message: "User not found"
+            });
         }
+        const match = await matchPassword(password, result[0][0].password);
 
-        const isMatch = await matchPassword(password, user.password);
-
-        if (!isMatch) {
-            return res.status(400).send("Wrong password");
+        if (!match) {
+            return res.status(400).send({
+                message: "Invalid password"
+            });
         }
-
         const hash = await hashPassword(newpassword);
-        await client.query(`UPDATE User SET password = ? WHERE _id = ?`, [hash, id]);
-
-        return res.status(200).send("Change password succeeded");
+        const newpass = await client.query(`UPDATE User SET password = "${hash}" WHERE _id = ${id}`);
+        res.status(200).send({
+            message: "Change password successed"
+        });
     } catch (error) {
         console.log(error);
     }

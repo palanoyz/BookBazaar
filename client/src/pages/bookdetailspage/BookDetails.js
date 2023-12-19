@@ -32,6 +32,7 @@ const BookDetails = () => {
     const authorName = data.authorInfo?.map((item) => item.name);
     const publisherName = data.publisherInfo?.map((item) => item.name);
     const categoryName = data.categoryInfo?.map((item) => item.name);
+    
 
     const addtocart = () => {
         try {
