@@ -8,9 +8,9 @@ const { MongoClient, ObjectId } = require('mongodb')
 
 const app = express()
 const PORT = 5000
-const url = "mongodb+srv://kritamet:1234@cluster0.ebbbwuy.mongodb.net/"
+const url = ""
 const client = new MongoClient(url)
-const secret = "GN0000"
+const secret = ""
 
 app.use(express.json())
 app.use(cookieParser())
