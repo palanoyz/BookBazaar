@@ -1,0 +1,12 @@
+.product-list-container {
+    margin-top: 5%;
+    margin-bottom: 6%;
+}
+
+.list-container {
+    padding-top: 4rem;
+    padding-bottom: 7rem;
+    display: flex;
+    justify-content: space-around;
+}
+

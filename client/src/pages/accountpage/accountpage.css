@@ -1,0 +1,66 @@
+.accountpage {
+    display: flex;
+    flex-direction: row;
+    height: 91.9vh;
+}
+
+.account-content {
+    padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 2rem;
+}
+
+.account-content * {
+    word-wrap: break-word;
+    padding-left: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
+}
+
+/* .account-content h1, .account-content h2 {
+    padding-left: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
+} */
+
+.changepass-button {
+    color: white;
+    width: 70px;
+    padding: 0.5rem;
+    margin-top: 10px;
+    margin-left: 3rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+    background-color: rgb(14, 155, 14);
+    transition: 0.3s;
+}
+.changepass-button:hover {
+    background-color: green;
+}
+
+.bookcollection {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-row-gap: 1rem;
+    width: 20%;
+}
+
+.mybook-card img {
+    width: 200px;
+}
+
+.changepass-form {
+    display: flex;
+    flex-direction: column;
+    padding-left: 4rem;
+}
+
+.changepass-form label {
+    padding-top: 2rem;
+}

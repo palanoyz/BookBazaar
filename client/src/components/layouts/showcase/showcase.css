@@ -1,0 +1,33 @@
+.showcase-container {
+    height: 100vh;
+    width: 100%;
+    background-image: url('../../../assets/MANGA-Plus-MAX.jpg');
+    background-size: 1600px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.6);
+    position: absolute;
+    top: 0;
+}
+
+.showcase-content {
+    width: fit-content;
+    z-index: 1;
+}
+
+.showcase-content h1 {
+    color: #fff;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+/* .showcase-content span {
+    color: var(--primary-color-bright);
+} */
